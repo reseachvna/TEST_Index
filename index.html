@@ -123,28 +123,20 @@
         .footer strong { color: #1a365d; }
     </style>
 </head>
-    <!-- ================= HORIZONTAL LUXURY POPUP ================= -->
-
-<!-- ===== TOP BAR ===== -->
+    <!-- ================= LUXURY PROMO POPUP (UPGRADED) ================= -->
 
 <div class="top-promo-bar">
-
     <div class="promo-marquee">
         🔥 ƯU ĐÃI KHÓA TRẦN LÃI SUẤT 8% · FLAMINGO HỖ TRỢ PHẦN LÃI VƯỢT 8%
     </div>
-
 </div>
 
-<!-- ===== POPUP ===== -->
-
 <div id="promoPopup" class="promo-overlay">
-
     <div class="promo-modal">
 
         <button class="promo-close" onclick="closePopup()">×</button>
 
         <!-- LEFT -->
-
         <div class="promo-left-side">
 
             <div class="promo-header-tag">
@@ -165,495 +157,295 @@
             </div>
 
             <div class="countdown-wrapper">
-
-                <div class="count-item">
-                    <div id="days">00</div>
-                    <span>NGÀY</span>
-                </div>
-
-                <div class="count-item">
-                    <div id="hours">00</div>
-                    <span>GIỜ</span>
-                </div>
-
-                <div class="count-item">
-                    <div id="minutes">00</div>
-                    <span>PHÚT</span>
-                </div>
-
-                <div class="count-item">
-                    <div id="seconds">00</div>
-                    <span>GIÂY</span>
-                </div>
-
+                <div class="count-item"><div id="days">00</div><span>NGÀY</span></div>
+                <div class="count-item"><div id="hours">00</div><span>GIỜ</span></div>
+                <div class="count-item"><div id="minutes">00</div><span>PHÚT</span></div>
+                <div class="count-item"><div id="seconds">00</div><span>GIÂY</span></div>
             </div>
 
         </div>
 
         <!-- RIGHT -->
-
         <div class="promo-right-side">
 
             <div class="promo-card">
-    💰 HỖ TRỢ TRẦN LÃI SUẤT<br>
-    <span class="highlight-text">8%/NĂM</span>
-</div>
+                💰 HỖ TRỢ TRẦN LÃI SUẤT <span class="hl-red">8%/NĂM</span>
+            </div>
 
-<div class="promo-card">
-    📈 CHỦ ĐẦU TƯ HỖ TRỢ<br>
-    <span class="highlight-text">PHẦN LÃI VƯỢT 8%</span>
-</div>
+            <div class="promo-card">
+                📈 CHỦ ĐẦU TƯ HỖ TRỢ <span class="hl-gold">PHẦN LÃI VƯỢT 8%</span>
+            </div>
 
-<div class="promo-card">
-    ⏳ THỜI GIAN HỖ TRỢ<br>
-    <span class="highlight-text">36 THÁNG</span><br>
-    kể từ ngày giải ngân
-</div>
+            <div class="promo-card">
+                ⏳ THỜI GIAN HỖ TRỢ <span class="hl-blue">36 THÁNG</span> KỂ TỪ NGÀY GIẢI NGÂN
+            </div>
 
-<div class="promo-card">
-    📅 THỜI GIAN ÁP DỤNG:<br>
-    <span class="highlight-text">
-        TỪ 18/5 - 18/6/2026
-    </span>
-</div>
+            <div class="promo-card">
+                📅 THỜI GIAN ÁP DỤNG TỪ
+                <span class="hl-green">18/5 - 18/6/2026</span>
+            </div>
 
             <div class="promo-note">
-                ÁP DỤNG CHO TOÀN BỘ CÁC DỰ ÁN BẤT ĐỘNG SẢN ĐANG TRIỂN KHAI CỦA FLAMINGO
+                ÁP DỤNG TOÀN BỘ DỰ ÁN BẤT ĐỘNG SẢN ĐANG TRIỂN KHAI CỦA FLAMINGO
             </div>
 
         </div>
 
     </div>
-
 </div>
 
 <style>
 
-/* ================= BODY ================= */
-
+/* ===== BASE ===== */
 body{
     margin-top:70px;
 }
 
-/* ================= TOP BAR ================= */
-
+/* ===== TOP BAR ===== */
 .top-promo-bar{
-
     position:fixed;
-
-    top:0;
-    left:0;
-
+    top:0; left:0;
     width:100%;
     height:70px;
-
     background:rgba(255,255,255,0.96);
-
     backdrop-filter:blur(14px);
-
-    border-bottom:1px solid rgba(0,0,0,0.05);
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     overflow:hidden;
-
     z-index:9999;
 }
 
 .promo-marquee{
-
-    font-size:20px;
-
+    font-size:18px;
     font-weight:900;
-
     color:#0f274d;
-
-    animation:marqueeMove 2s ease-in-out infinite alternate;
+    animation:marqueeMove 10s linear infinite;
 }
 
-/* ================= POPUP ================= */
-
+/* ===== POPUP OVERLAY ===== */
 .promo-overlay{
-
     position:fixed;
-
     inset:0;
-
-    background:rgba(0,0,0,0.42);
-
-    backdrop-filter:blur(4px);
-
-    display:flex;
-
+    background:rgba(0,0,0,0.45);
+    backdrop-filter:blur(6px);
+    display:none;
     justify-content:center;
-
     align-items:center;
-
     padding:24px;
-
     z-index:99999;
+}
 
-    box-sizing:border-box;
+/* ===== ANIMATION OPEN ===== */
+.promo-overlay.show{
+    display:flex;
+    animation:fadeIn .25s ease;
 }
 
 .promo-modal{
-
     width:100%;
-
     max-width:1080px;
-
-    background:
-    linear-gradient(
-        135deg,
-        #ffffff,
-        #f7fbff
-    );
-
-    border-radius:30px;
-
-    padding:38px;
-
+    background:linear-gradient(135deg,#fff,#f7fbff);
+    border-radius:28px;
+    padding:36px;
     display:flex;
-
-    gap:34px;
-
+    gap:30px;
     position:relative;
+    box-shadow:0 24px 60px rgba(0,0,0,0.18);
 
-    box-shadow:
-    0 24px 60px rgba(0,0,0,0.18);
+    transform:scale(.85);
+    opacity:0;
+    animation:zoomIn .25s ease forwards;
 }
 
-/* ================= CLOSE ================= */
-
+/* ===== CLOSE ===== */
 .promo-close{
-
     position:absolute;
-
-    top:18px;
-    right:18px;
-
-    width:42px;
-    height:42px;
-
+    top:16px;
+    right:16px;
+    width:40px;height:40px;
     border:none;
-
     border-radius:50%;
-
     background:#eef2f7;
-
-    font-size:22px;
-
-    font-weight:700;
-
     cursor:pointer;
-
-    color:#0f274d;
+    font-size:20px;
+    font-weight:800;
 }
 
-/* ================= LEFT ================= */
-
-.promo-left-side{
-
-    flex:1.1;
-}
+/* ===== LEFT ===== */
+.promo-left-side{flex:1.1;}
 
 .promo-header-tag{
-
-    display:inline-block;
-
-    background:
-    linear-gradient(
-        135deg,
-        #f4ddb0,
-        #cfa14b
-    );
-
-    color:white;
-
-    padding:12px 22px;
-
+    background:linear-gradient(135deg,#f4ddb0,#cfa14b);
+    color:#fff;
+    padding:10px 18px;
     border-radius:999px;
-
-    font-size:14px;
-
     font-weight:900;
-
-    margin-bottom:22px;
+    display:inline-block;
+    margin-bottom:18px;
 }
 
 .promo-left-side h1{
-
-    font-size:42px;
-
-    line-height:1.2;
-
+    font-size:40px;
     color:#11284c;
-
-    margin-bottom:18px;
-
     font-weight:900;
-
-    text-align:center;
-}
 }
 
 .promo-left-side h1 span{
-
     color:#d0a24a;
-
-    text-shadow:
-    0 0 10px rgba(255,220,140,0.8);
 }
 
 .promo-subtitle{
-
-    font-size:17px;
-
-    line-height:1.6;
-
     color:#4f5d74;
-
     font-weight:700;
-
-    margin-bottom:28px;
+    margin:18px 0;
 }
 
-/* ================= COUNTDOWN ================= */
-
-.countdown-title{
-
-    font-size:16px;
-
-    font-weight:900;
-
-    color:#0f274d;
-
-    margin-bottom:14px;
-}
-
+/* ===== COUNTDOWN ===== */
 .countdown-wrapper{
-
     display:flex;
-
-    gap:12px;
-
-    flex-wrap:wrap;
+    gap:10px;
 }
 
 .count-item{
-
-    width:72px;
-
-    background:white;
-
-    border-radius:18px;
-
-    padding:12px;
-
+    width:70px;
+    background:#fff;
+    border-radius:16px;
+    padding:10px;
     text-align:center;
-
-    box-shadow:
-    0 8px 20px rgba(0,0,0,0.05);
+    box-shadow:0 8px 20px rgba(0,0,0,0.05);
 }
 
 .count-item div{
-
-    font-size:24px;
-
+    font-size:22px;
     font-weight:900;
-
-    color:#11284c;
 }
 
-.count-item span{
-
-    font-size:11px;
-
-    font-weight:800;
-
-    color:#9aa3b1;
-}
-
-/* ================= RIGHT ================= */
-
+/* ===== RIGHT ===== */
 .promo-right-side{
-
     flex:1;
-
     display:grid;
-
     grid-template-columns:1fr 1fr;
-
-    gap:16px;
+    gap:14px;
 }
 
 .promo-card{
-
-    background:white;
-
-    border-radius:22px;
-
-    padding:24px 18px;
-
-    font-size:18px;
-
-    line-height:1.6;
-
-    font-weight:900;
-
-    color:#11284c;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
+    background:#fff;
+    border-radius:18px;
+    padding:18px;
+    font-weight:800;
     text-align:center;
-
-    box-shadow:
-    0 12px 28px rgba(0,0,0,0.05);
+    box-shadow:0 10px 24px rgba(0,0,0,0.05);
 }
 
 .promo-note{
-
     grid-column:span 2;
-
     text-align:center;
-
-    font-size:15px;
-
-    line-height:1.7;
-
     font-weight:900;
-
-    color:#0f274d;
-
-    padding-top:10px;
 }
 
-/* ================= ANIMATION ================= */
+/* ===== HIGHLIGHT ===== */
+.hl-red{color:#e53935;font-weight:900;}
+.hl-gold{color:#caa24a;font-weight:900;}
+.hl-blue{color:#1e88e5;font-weight:900;}
+.hl-green{color:#2e7d32;font-weight:900;}
 
+/* ===== ANIMATIONS ===== */
 @keyframes marqueeMove{
-
-    from{
-        transform:translateX(-40px);
-    }
-
-    to{
-        transform:translateX(40px);
-    }
+    from{transform:translateX(100%);}
+    to{transform:translateX(-100%);}
 }
 
-/* ================= MOBILE ================= */
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
 
+@keyframes zoomIn{
+    to{transform:scale(1);opacity:1;}
+}
+
+/* ===== MOBILE ===== */
 @media(max-width:900px){
-
-    body{
-        margin-top:78px;
-    }
-
-    .promo-modal{
-
-        flex-direction:column;
-
-        padding:28px 20px;
-    }
-
-    .promo-left-side h1{
-        font-size:32px;
-    }
-
-    .promo-right-side{
-        grid-template-columns:1fr;
-    }
-
-    .promo-note{
-        grid-column:span 1;
-    }
-
-    .promo-marquee{
-        font-size:14px;
-        text-align:center;
-    }
-
+    .promo-modal{flex-direction:column;}
+    .promo-right-side{grid-template-columns:1fr;}
 }
 
 </style>
 
 <script>
 
-/* ================= CLOSE POPUP ================= */
-
-function closePopup(){
-
-    document.getElementById("promoPopup").style.display = "none";
+/* ===== COOKIE / SESSION CONTROL ===== */
+function shouldShowPopup(){
+    if(sessionStorage.getItem("popupShown")) return false;
+    return true;
 }
 
-/* ================= ESC CLOSE ================= */
+/* ===== OPEN ===== */
+function openPopup(){
+    const popup = document.getElementById("promoPopup");
+    popup.classList.add("show");
+    sessionStorage.setItem("popupShown","1");
+}
 
-document.addEventListener("keydown", function(event){
+/* ===== CLOSE ===== */
+function closePopup(){
+    document.getElementById("promoPopup").classList.remove("show");
+}
 
-    if(event.key === "Escape"){
-
+/* ===== CLICK OUTSIDE ===== */
+document.addEventListener("click", function(e){
+    const popup = document.getElementById("promoPopup");
+    const modal = document.querySelector(".promo-modal");
+    if(e.target === popup){
         closePopup();
     }
-
 });
 
-/* ================= AUTO OPEN ================= */
+/* ===== ESC CLOSE ===== */
+document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closePopup();
+});
 
-window.onload = function(){
-
-    setTimeout(() => {
-
-        document.getElementById("promoPopup").style.display = "flex";
-
-    }, 600);
-
-}
-
-/* ================= COUNTDOWN ================= */
-
+/* ===== COUNTDOWN ===== */
 const endDate = new Date("June 18, 2026 23:59:59").getTime();
 
-const countdown = setInterval(function(){
+const elDays = document.getElementById("days");
+const elHours = document.getElementById("hours");
+const elMinutes = document.getElementById("minutes");
+const elSeconds = document.getElementById("seconds");
 
-    const now = new Date().getTime();
+let countdown = setInterval(() => {
 
+    const now = Date.now();
     const distance = endDate - now;
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    if(distance < 0){
+        clearInterval(countdown);
+        return;
+    }
 
-    const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24))
-        / (1000 * 60 * 60)
-    );
-
-    const minutes = Math.floor(
-        (distance % (1000 * 60 * 60))
-        / (1000 * 60)
-    );
-
-    const seconds = Math.floor(
-        (distance % (1000 * 60))
-        / 1000
-    );
-
-    document.getElementById("days").innerHTML = days;
-    document.getElementById("hours").innerHTML = hours;
-    document.getElementById("minutes").innerHTML = minutes;
-    document.getElementById("seconds").innerHTML = seconds;
+    elDays.innerHTML = Math.floor(distance / 86400000);
+    elHours.innerHTML = Math.floor((distance % 86400000)/3600000);
+    elMinutes.innerHTML = Math.floor((distance % 3600000)/60000);
+    elSeconds.innerHTML = Math.floor((distance % 60000)/1000);
 
 },1000);
 
+/* ===== INIT ===== */
+window.addEventListener("load", () => {
+
+    if(!shouldShowPopup()) return;
+
+    setTimeout(() => {
+        openPopup();
+    }, 600);
+
+});
+
 </script>
 
-<!-- ================= END POPUP ================= -->
+<!-- ================= END ================= -->
 <body>
 
     <div class="header">
