@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-Deal Portal | Lựa chọn dự án</title>
+    <style>
+        /* Reset cơ bản */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f4f7f6; /* Màu nền xám nhạt tinh tế */
+            color: #333; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh;
+        }
+
+        /* Khối Header */
+        .header { 
+            text-align: center; 
+            padding: 50px 20px 30px; 
+        }
+        .header h2 { 
+            color: #d53f8c; 
+            font-size: 16px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin-bottom: 10px; 
+            font-weight: bold;
+        }
+        .header h1 { 
+            color: #1a365d; 
+            font-size: 32px; 
+            margin: 0; 
+            text-transform: uppercase;
+        }
+
+        /* Container chứa các thẻ */
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto 50px; 
+            padding: 0 20px; 
+            flex: 1; 
+            width: 100%;
+        }
+
+        /* Lưới hiển thị (Grid) - Tự động đáp ứng trên điện thoại */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 30px; 
+            justify-content: center;
+        }
+
+        /* Thiết kế từng thẻ dự án (Card) */
+        .card { 
+            background: #fff; 
+            border-radius: 12px; 
+            overflow: hidden; /* Cắt các góc nhọn của ảnh để bo tròn theo thẻ */
+            text-decoration: none; 
+            display: flex; 
+            flex-direction: column; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06); 
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15); 
+        }
+
+        /* Phần ảnh đại diện dự án */
+        .card-image {
+            width: 100%;
+            height: 220px; /* Chiều cao cố định cho ảnh */
+            object-fit: cover; /* Đảm bảo ảnh không bị méo */
+            transition: transform 0.5s ease;
+        }
+        .card:hover .card-image {
+            transform: scale(1.05); /* Hiệu ứng zoom nhẹ ảnh khi hover */
+        }
+
+        /* Khối text bên dưới ảnh */
+        .card-content {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            position: relative;
+            z-index: 2; /* Đảm bảo nằm trên ảnh khi hover */
+        }
+
+        .card-title { 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #1a365d; 
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        /* Mũi tên điều hướng */
+        .card-arrow {
+            color: #d53f8c;
+            font-size: 20px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .card:hover .card-arrow {
+            transform: translateX(5px); /* Mũi tên trượt sang phải khi hover */
+        }
+
+        /* Footer */
+        .footer { 
+            text-align: center; 
+            padding: 20px; 
+            color: #888; 
+            font-size: 13px; 
+            background: #fff;
+            border-top: 1px solid #eaeaea;
+        }
+        .footer strong { color: #1a365d; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>🔥 F-Deal Portal</h2>
+        <h1>Chọn dự án</h1>
+    </div>
+
+    <div class="container">
+        <div class="grid">
+            
+            <!-- Dự án 1: Ibiza Party Resort -->
+            <!-- Chú ý: Thay link ảnh thực tế vào thuộc tính src="" -->
+            <a href="https://reseachvna.github.io/PTG-Ibiza21T/" target="_blank" class="card">
+                <img src="Ibiza21T.png" alt="Ibiza Party Resort" class="card-image">
+                <div class="card-content">
+                    <h3 class="card-title">Ibiza Party Resort</h3>
+                    <span class="card-arrow">➔</span>
+                </div>
+            </a>
+
+            <!-- Dự án 2: Cát Bà -->
+            <a href="https://reseachvna.github.io/PTG-Catba/" target="_blank" class="card">
+                <img src="Cat ba.png" alt="Khu du lịch Cát Bà" class="card-image">
+                <div class="card-content">
+                    <h3 class="card-title">Khu du lịch Cát Bà</h3>
+                    <span class="card-arrow">➔</span>
+                </div>
+            </a>
+
+            <!-- Dự án 3: Golden Hill -->
+            <a href="https://reseachvna.github.io/PTG-Basao/" target="_blank" class="card">
+                <img src="Golden Hill.png" alt="Flamingo Golden Hill" class="card-image">
+                <div class="card-content">
+                    <h3 class="card-title">Flamingo Golden Hill</h3>
+                    <span class="card-arrow">➔</span>
+                </div>
+            </a>
+
+            <!-- Dự án 4: Tân Trào -->
+            <a href="https://reseachvna.github.io/PTG_Tantrao/" target="_blank" class="card">
+                <img src="Tan trao.png" alt="Heritage Onsen & Resort" class="card-image">
+                <div class="card-content">
+                    <h3 class="card-title">Flamingo Heritage Onsen & Resort</h3>
+                    <span class="card-arrow">➔</span>
+                </div>
+            </a>
+
+            <!-- Dự án 5: Ibiza Hải Tiến -->
+            <a href="https://reseachvna.github.io/PTG-IbizaThT/" target="_blank" class="card">
+                <img src="Ibiza Hai tien.png" alt="Ibiza Hải Tiến" class="card-image">
+                <div class="card-content">
+                    <h3 class="card-title">Ibiza Hải Tiến</h3>
+                    <span class="card-arrow">➔</span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        © Developed by <strong>DMD – R&D FLV</strong> | Hệ thống F-Deal
+    </div>
+
+</body>
+</html>
