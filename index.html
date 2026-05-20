@@ -3,536 +3,568 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F-Deal Portal | Lựa chọn dự án</title>
+    <title>Quản lý Đội Nhóm & Doanh Số MLM</title>
     <style>
-        /* Reset cơ bản */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #f4f7f6; /* Màu nền xám nhạt tinh tế */
-            color: #333; 
-            display: flex; 
-            flex-direction: column; 
-            min-height: 100vh;
+        :root {
+            --primary-color: #2563eb;
+            --success-color: #16a34a;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
         }
 
-        /* Khối Header */
-        .header { 
-            text-align: center; 
-            padding: 50px 20px 30px; 
-        }
-        .header h2 { 
-            color: #d53f8c; 
-            font-size: 16px; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            margin-bottom: 10px; 
-            font-weight: bold;
-        }
-        .header h1 { 
-            color: #1a365d; 
-            font-size: 32px; 
-            margin: 0; 
-            text-transform: uppercase;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Container chứa các thẻ */
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto 50px; 
-            padding: 0 20px; 
-            flex: 1; 
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 6px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+        }
+
+        .btn-demo {
+            background-color: #475569;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 992px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            color: #334155;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
             width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            outline: none;
+            font-size: 1rem;
         }
 
-        /* Lưới hiển thị (Grid) - Tự động đáp ứng trên điện thoại */
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 30px; 
-            justify-content: center;
+        .form-control:focus {
+            border-color: var(--primary-color);
         }
 
-        /* Thiết kế từng thẻ dự án (Card) */
-        .card { 
-            background: #fff; 
-            border-radius: 12px; 
-            overflow: hidden; /* Cắt các góc nhọn của ảnh để bo tròn theo thẻ */
-            text-decoration: none; 
-            display: flex; 
-            flex-direction: column; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06); 
-            transition: all 0.3s ease;
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .sales-input {
+            width: 80px;
+            padding: 4px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-align: right;
+        }
+
+        /* Tree view style */
+        .tree ul {
+            padding-top: 20px; 
+            position: relative;
+            transition: all 0.5s;
+        }
+
+        .tree li {
+            float: left; 
+            text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 5px 0 5px;
+            transition: all 0.5s;
+        }
+
+        .tree li::before, .tree li::after {
+            content: '';
+            position: absolute; 
+            top: 0; 
+            right: 50%;
+            border-top: 1px solid #ccc;
+            width: 50%; 
+            height: 20px;
+        }
+        .tree li::after {
+            right: auto; 
+            left: 50%;
+            border-left: 1px solid #ccc;
+        }
+
+        .tree li:only-child::after, .tree li:only-child::before {
+            display: none;
+        }
+
+        .tree li:only-child { 
+            padding-top: 0;
+        }
+
+        .tree li:first-child::before, .tree li:last-child::after {
+            border: 0 none;
+        }
+
+        .tree li:last-child::before {
+            border-right: 1px solid #ccc;
+            border-radius: 0 5px 0 0;
+        }
+        .tree li:first-child::after {
+            border-radius: 5px 0 0 0;
+        }
+
+        .tree ul ul::before {
+            content: '';
+            position: absolute; 
+            top: 0; 
+            left: 50%;
+            border-left: 1px solid #ccc;
+            width: 0; 
+            height: 20px;
+        }
+
+        .tree-node {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.85rem;
+            display: inline-block;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.5s;
+        }
+
+        .tree-node .name {
+            font-weight: bold;
+            color: #1e293b;
+            background: #fef08a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+
+        .tree-node .details {
+            font-size: 0.8rem;
+            text-align: left;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
         }
         
-        .card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15); 
+        .tree-container {
+            overflow-x: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
         }
-
-        /* Phần ảnh đại diện dự án */
-        .card-image {
-            width: 100%;
-            height: 220px; /* Chiều cao cố định cho ảnh */
-            object-fit: cover; /* Đảm bảo ảnh không bị méo */
-            transition: transform 0.5s ease;
-        }
-        .card:hover .card-image {
-            transform: scale(1.05); /* Hiệu ứng zoom nhẹ ảnh khi hover */
-        }
-
-        /* Khối text bên dưới ảnh */
-        .card-content {
-            padding: 20px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #fff;
-            position: relative;
-            z-index: 2; /* Đảm bảo nằm trên ảnh khi hover */
-        }
-
-        .card-title { 
-            font-size: 18px; 
-            font-weight: bold; 
-            color: #1a365d; 
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        /* Mũi tên điều hướng */
-        .card-arrow {
-            color: #d53f8c;
-            font-size: 20px;
+        
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
             font-weight: bold;
-            transition: transform 0.3s ease;
+            color: white;
+            background-color: #64748b;
         }
-        .card:hover .card-arrow {
-            transform: translateX(5px); /* Mũi tên trượt sang phải khi hover */
-        }
-
-        /* Footer */
-        .footer { 
-            text-align: center; 
-            padding: 20px; 
-            color: #888; 
-            font-size: 13px; 
-            background: #fff;
-            border-top: 1px solid #eaeaea;
-        }
-        .footer strong { color: #1a365d; }
     </style>
 </head>
-<!-- ================= FONT ================= -->
-<head>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-</head>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
-<title>Promo Popup</title>
-
-<style>
-
-/* ================= GLOBAL ================= */
-body{
-    margin-top:70px;
-    font-family:"Inter", sans-serif;
-    color:#0f274d;
-}
-
-/* LOCK SCROLL STATE */
-body.lock-scroll{
-    overflow:hidden;
-    position:fixed;
-    width:100%;
-}
-
-/* ================= TOP BAR ================= */
-.top-promo-bar{
-    position:fixed;
-    top:0;
-    width:100%;
-    height:70px;
-    background:#fff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-    border-bottom:1px solid #eee;
-    overflow:hidden;
-}
-
-/* ✅ FIX MARQUEE CHẠY LIÊN TỤC */
-.promo-marquee{
-    font-weight:900;
-    white-space:nowrap;
-    display:inline-block;
-    animation:marqueeMove 12s linear infinite;
-}
-
-/* KEYFRAME CHẠY MƯỢT */
-@keyframes marqueeMove{
-    0%{
-        transform:translateX(100%);
-    }
-    100%{
-        transform:translateX(-100%);
-    }
-}
-
-/* ================= POPUP ================= */
-.promo-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.55);
-    backdrop-filter:blur(6px);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:18px;
-    z-index:2147483647;
-}
-
-.promo-overlay.show{
-    display:flex;
-}
-
-.promo-modal{
-    width:100%;
-    max-width:1200px;
-    background:#fff;
-    border-radius:22px;
-    padding:28px;
-    display:flex;
-    gap:24px;
-    position:relative;
-}
-
-/* CLOSE */
-.promo-close{
-    position:absolute;
-    top:12px;
-    right:12px;
-    width:40px;
-    height:40px;
-    border:none;
-    border-radius:50%;
-    cursor:pointer;
-}
-
-/* ================= LEFT ================= */
-.promo-left-side{
-    flex:1.3;
-}
-
-.promo-header-tag{
-    font-weight:900;
-    margin-bottom:10px;
-}
-
-.promo-left-side h1{
-    font-size:38px;
-    font-weight:900;
-    line-height:1.2;
-}
-
-.promo-left-side h1 span{
-    display:block;
-    color:#e53935;
-}
-
-.promo-subtitle{
-    margin:10px 0 18px;
-    font-weight:600;
-    color:#4b5b70;
-}
-
-/* ================= COUNTDOWN ================= */
-.countdown-title{
-    font-size:14px;
-    font-weight:800;
-    margin-bottom:8px;
-    color:#6b7c93;
-}
-
-.countdown-wrapper{
-    display:flex;
-    gap:8px;
-}
-
-.count-item{
-    flex:1;
-    background:#f5f7fa;
-    border-radius:10px;
-    padding:6px;
-    text-align:center;
-}
-
-.count-item div{
-    font-size:16px;
-    font-weight:900;
-}
-
-.count-item span{
-    font-size:10px;
-    color:#7a8aa0;
-}
-
-/* ================= RIGHT ================= */
-.promo-right-side{
-    flex:1;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-.promo-card{
-    background:#f8fafc;
-    padding:16px;
-    border-radius:14px;
-    font-weight:800;
-    text-align:center;
-    font-size:15px;
-}
-
-.hl{
-    color:#e53935;
-    font-weight:900;
-}
-
-.promo-note{
-    grid-column:span 2;
-    text-align:center;
-    font-weight:900;
-    font-size:14px;
-}
-
-/* ================= MOBILE ================= */
-@media(max-width:768px){
-
-    .promo-modal{
-        flex-direction:column;
-        max-height:90vh;
-        overflow:auto;
-    }
-
-    .promo-left-side h1{
-        font-size:26px;
-    }
-
-    .promo-right-side{
-        grid-template-columns:1fr;
-    }
-
-    .count-item div{
-        font-size:14px;
-    }
-}
-
-</style>
-</head>
-
 <body>
 
-<div class="top-promo-bar">
-    <div class="promo-marquee">
-        🔥 ƯU ĐÃI KHÓA TRẦN LÃI SUẤT 8%/NĂM · CHỦ ĐẦU TƯ HỖ TRỢ TOÀN BỘ PHẦN LÃI VƯỢT 8%
-    </div>
-</div>
+<div class="container">
+    <header>
+        <h1>Hệ Thống Quản Lý Đội Nhóm & Doanh Số</h1>
+        <p>Ứng dụng cấu trúc cây thụ động - Tự động tính toán doanh số cuộn và hoa hồng theo mốc</p>
+        <button class="btn btn-demo" onclick="loadDemoData()" style="margin-top: 10px;">⚡ Nạp dữ liệu mẫu giống ảnh</button>
+    </header>
 
-<div id="promoPopup" class="promo-overlay">
-
-    <div class="promo-modal">
-
-        <button class="promo-close" onclick="closePopup()">×</button>
-
-        <!-- LEFT -->
-        <div class="promo-left-side">
-
-            <div class="promo-header-tag">
-                ✨ ƯU ĐÃI TÀI CHÍNH ĐẶC BIỆT ✨
+    <div class="grid">
+        <div>
+            <div class="card">
+                <h2>1. Thêm Thành Viên Mới</h2>
+                <form id="memberForm" onsubmit="addMember(event)">
+                    <div class="form-group">
+                        <label for="memberName">Tên CTV / Sale:</label>
+                        <input type="text" id="memberName" class="form-control" placeholder="Ví dụ: CTV L" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberParent">Cấp trên quản lý (Leader):</label>
+                        <select id="memberParent" class="form-control">
+                            <option value="">-- Không có (Là F0 gốc) --</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Thêm thành viên</button>
+                </form>
             </div>
 
-            <h1>
-                LÁ CHẮN LÃI SUẤT<br>
-                <span>KHÓA TRẦN 8%</span>
-            </h1>
-
-            <div class="promo-subtitle">
-                NHÂN DỊP 19/5 - KỶ NIỆM SINH NHẬT CHỦ TỊCH HỒ CHÍ MINH
+            <div class="card">
+                <h2>2. Nhập Doanh Số Cá Nhân (tỷ VNĐ)</h2>
+                <div style="max-height: 400px; overflow-y: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Thành viên</th>
+                                <th>Cấp bậc</th>
+                                <th style="text-align: right;">Doanh số cá nhân</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesTableBody">
+                            </tbody>
+                    </table>
+                </div>
             </div>
-
-            <div class="countdown-title">
-                THỜI GIAN CÒN LẠI CỦA CHÍNH SÁCH
-            </div>
-
-            <div class="countdown-wrapper small">
-                <div class="count-item small"><div id="days">00</div><span>NGÀY</span></div>
-                <div class="count-item small"><div id="hours">00</div><span>GIỜ</span></div>
-                <div class="count-item small"><div id="minutes">00</div><span>PHÚT</span></div>
-                <div class="count-item small"><div id="seconds">00</div><span>GIÂY</span></div>
-            </div>
-
         </div>
 
-        <!-- RIGHT -->
-        <div class="promo-right-side">
-
-            <div class="promo-card">
-                💰 HỖ TRỢ TRẦN LÃI SUẤT <span class="hl">8%/NĂM</span>
+        <div>
+            <div class="card">
+                <h2>3. Bảng Tính Thưởng Hệ Thống</h2>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Họ tên</th>
+                                <th>Cấp</th>
+                                <th>DS Cá nhân</th>
+                                <th>DS Nhóm (Cuộn)</th>
+                                <th>Mốc đạt</th>
+                                <th>Thưởng Trực Tiếp</th>
+                                <th>Thưởng Thực Tế (Hiệu số)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rewardTableBody">
+                            </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 10px; font-size: 0.85rem; color: #64748b;">
+                    * <strong>Thưởng Trực Tiếp:</strong> % Mốc hưởng x Tổng DS nhóm.<br>
+                    * <strong>Thưởng Thực Tế (Hiệu số):</strong> Đã khấu trừ phần tiền hoa hồng mà các nhánh F1 trực thuộc nhận (Đúng quy chuẩn MLM thực tế).
+                </div>
             </div>
 
-            <div class="promo-card">
-                📈 CHỦ ĐẦU TƯ HỖ TRỢ TOÀN BỘ<span class="hl">PHẦN LÃI VƯỢT 8%</span>
+            <div class="card">
+                <h2>4. Sơ Đồ Cây Hệ Thống</h2>
+                <div class="tree-container">
+                    <div class="tree clearfix" id="treeRoot">
+                        </div>
+                </div>
             </div>
-
-            <div class="promo-card">
-                ⏳ THỜI GIAN HỖ TRỢ <span class="hl">36 THÁNG</span>
-            </div>
-
-            <div class="promo-card">
-                📅 ÁP DỤNG TỪ <span class="hl">18/5 - 18/6/2026</span>
-            </div>
-
-            <div class="promo-note">
-                ÁP DỤNG CHO TOÀN BỘ CÁC DỰ ÁN FLAMINGO ĐANG TRIỂN KHAI
-            </div>
-
         </div>
-
     </div>
 </div>
 
 <script>
+    // Khởi tạo danh sách thành viên ban đầu rỗng
+    let members = [];
 
-let scrollY = 0;
+    // Cấu hình các mốc thưởng
+    const rewardMilestones = [
+        { min: 100, rate: 0.03, label: "Mốc 4 (3%)" },
+        { min: 50,  rate: 0.02, label: "Mốc 3 (2%)" },
+        { min: 20,  rate: 0.01, label: "Mốc 2 (1%)" },
+        { min: 10,  rate: 0.005, label: "Mốc 1 (0.5%)" },
+        { min: 0,   rate: 0, label: "Không đạt" }
+    ];
 
-/* OPEN POPUP */
-function openPopup(){
-    scrollY = window.scrollY;
+    // Hàm nạp dữ liệu mẫu từ ảnh của khách hàng
+    function loadDemoData() {
+        members = [
+            { id: "A", name: "Sale in-house A", parentId: null, personalSales: 18 },
+            { id: "B", name: "CTV B", parentId: "A", personalSales: 8 },
+            { id: "C", name: "CTV C", parentId: "A", personalSales: 9 },
+            { id: "D", name: "CTV D", parentId: "B", personalSales: 16 },
+            { id: "E", name: "CTV E", parentId: "B", personalSales: 15 },
+            { id: "G", name: "CTV G", parentId: "E", personalSales: 25 },
+            { id: "H", name: "CTV H", parentId: "E", personalSales: 4 },
+            { id: "L", name: "CTV L", parentId: "G", personalSales: 0 },
+            { id: "I", name: "CTV I", parentId: "H", personalSales: 3 },
+            { id: "K", name: "CTV K", parentId: "H", personalSales: 2 }
+        ];
+        updateApp();
+    }
 
-    document.body.classList.add("lock-scroll");
-    document.body.style.top = `-${scrollY}px`;
+    // Thêm thành viên mới qua Form
+    function addMember(e) {
+        e.preventDefault();
+        const nameInput = document.getElementById('memberName');
+        const parentSelect = document.getElementById('memberParent');
+        
+        const name = nameInput.value.trim();
+        const parentId = parentSelect.value || null;
+        const id = 'M_' + Date.now(); // Tạo ID ngẫu nhiên không trùng
 
-    document.getElementById("promoPopup").classList.add("show");
-}
+        if(!name) return;
 
-/* CLOSE POPUP */
-function closePopup(){
-    document.getElementById("promoPopup").classList.remove("show");
+        members.push({
+            id: id,
+            name: name,
+            parentId: parentId,
+            personalSales: 0 // Ban đầu tạo mới mặc định doanh số = 0
+        });
 
-    document.body.classList.remove("lock-scroll");
-    document.body.style.top = "";
+        nameInput.value = '';
+        updateApp();
+    }
 
-    window.scrollTo(0, scrollY);
-}
+    // Cập nhật doanh số khi user thay đổi ô input
+    function updateSales(id, val) {
+        const member = members.find(m => m.id === id);
+        if(member) {
+            member.personalSales = parseFloat(val) || 0;
+            calculateAndRender();
+        }
+    }
 
-/* CLICK OUTSIDE */
-document.getElementById("promoPopup").addEventListener("click", e=>{
-    if(e.target === e.currentTarget) closePopup();
-});
+    // Hàm đệ quy tính toán độ sâu cấp bậc (F0, F1, F2...)
+    function getLevel(member) {
+        if (!member.parentId) return 0;
+        const parent = members.find(m => m.id === member.parentId);
+        return parent ? getLevel(parent) + 1 : 0;
+    }
 
-/* ESC */
-document.addEventListener("keydown", e=>{
-    if(e.key === "Escape") closePopup();
-});
+    // Hàm đệ quy tính tổng doanh số nhóm (gồm mình và toàn bộ cấp dưới)
+    function getGroupSales(memberId) {
+        let member = members.find(m => m.id === memberId);
+        if(!member) return 0;
+        
+        let total = member.personalSales;
+        let children = members.filter(m => m.parentId === memberId);
+        
+        for(let child of children) {
+            total += getGroupSales(child.id);
+        }
+        return total;
+    }
 
-/* AUTO SHOW */
-window.addEventListener("load", ()=>{
-    setTimeout(openPopup, 500);
-});
+    // Xác định tỷ lệ và mốc thưởng dựa vào doanh số nhóm
+    function getRewardConfig(groupSales) {
+        return rewardMilestones.find(m => groupSales >= m.min);
+    }
 
-/* COUNTDOWN */
-const end = new Date("June 18, 2026 23:59:59").getTime();
+    // Cập nhật lại toàn bộ ứng dụng (Dropdown, Bảng nhập, Sơ đồ)
+    function updateApp() {
+        // 1. Cập nhật danh sách chọn Cấp Trên (Dropdown)
+        const parentSelect = document.getElementById('memberParent');
+        parentSelect.innerHTML = '<option value="">-- Không có (Là F0 gốc) --</option>';
+        members.forEach(m => {
+            parentSelect.innerHTML += `<option value="${m.id}">${m.name}</option>`;
+        });
 
-setInterval(()=>{
-    const d = end - Date.now();
-    if(d < 0) return;
+        calculateAndRender();
+    }
 
-    document.getElementById("days").innerText = Math.floor(d/86400000);
-    document.getElementById("hours").innerText = Math.floor((d%86400000)/3600000);
-    document.getElementById("minutes").innerText = Math.floor((d%3600000)/60000);
-    document.getElementById("seconds").innerText = Math.floor((d%60000)/1000);
+    // Tính toán số liệu và đổ ra HTML hiển thị
+    function calculateAndRender() {
+        // Mảng lưu kết quả tính toán chi tiết
+        let calculatedData = members.map(m => {
+            const gSales = getGroupSales(m.id);
+            const mốc = getRewardConfig(gSales);
+            const level = getLevel(m);
+            return {
+                ...m,
+                level: level,
+                groupSales: gSales,
+                rate: mốc.rate,
+                mốcLabel: mốc.label,
+                directReward: gSales * mốc.rate
+            };
+        });
 
-},1000);
-
-</script>
-
-</body>
-</html>
-<body>
-
-    <div class="header">
-        <h2>🔥 F-Deal Portal</h2>
-        <h1>Chọn dự án</h1>
-    </div>
-
-    <div class="container">
-        <div class="grid">
+        // Tính toán Thưởng Thực Tế theo Cơ Chế Hiệu Số (Khấu trừ thưởng F1 trực hệ)
+        calculatedData = calculatedData.map(m => {
+            let directReward = m.directReward;
+            // Tìm các F1 trực tiếp của người này
+            let f1s = calculatedData.filter(child => child.parentId === m.id);
+            // Tiền thưởng thực nhận = Thưởng tổng nhóm mình - Tổng thưởng của các nhóm F1
+            let totalF1Reward = f1s.reduce((sum, f1) => sum + f1.directReward, 0);
+            let realReward = directReward - totalF1Reward;
             
-            <!-- Dự án 1: Ibiza Party Resort -->
-            <!-- Chú ý: Thay link ảnh thực tế vào thuộc tính src="" -->
-            <a href="https://reseachvna.github.io/PTG-Ibiza21T/" target="_blank" class="card">
-                <img src="Ibiza21T.png" alt="Ibiza Party Resort" class="card-image">
-                <div class="card-content">
-                    <h3 class="card-title">Ibiza Party Resort</h3>
-                    <span class="card-arrow">➔</span>
-                </div>
-            </a>
+            return {
+                ...m,
+                realReward: realReward > 0 ? realReward : 0 // Tránh số âm nếu bên dưới vượt cấp vượt mốc
+            };
+        });
 
-            <!-- Dự án 2: Cát Bà -->
-            <a href="https://reseachvna.github.io/PTG-Catba/" target="_blank" class="card">
-                <img src="Cat ba.png" alt="Khu du lịch Cát Bà" class="card-image">
-                <div class="card-content">
-                    <h3 class="card-title">Khu du lịch Cát Bà</h3>
-                    <span class="card-arrow">➔</span>
-                </div>
-            </a>
+        // Sắp xếp hiển thị bảng theo thứ tự cấp bậc F0 -> F1 -> F2
+        calculatedData.sort((a, b) => a.level - b.level);
 
-            <!-- Dự án 3: Golden Hill -->
-            <a href="https://reseachvna.github.io/PTG-Basao/" target="_blank" class="card">
-                <img src="Golden Hill.png" alt="Flamingo Golden Hill" class="card-image">
-                <div class="card-content">
-                    <h3 class="card-title">Flamingo Golden Hill</h3>
-                    <span class="card-arrow">➔</span>
-                </div>
-            </a>
+        // Render Bảng Nhập Doanh Số Nhanh
+        const salesBody = document.getElementById('salesTableBody');
+        salesBody.innerHTML = '';
+        calculatedData.forEach(m => {
+            salesBody.innerHTML += `
+                <tr>
+                    <td><strong>${m.name}</strong></td>
+                    <td><span class="badge">F${m.level}</span></td>
+                    <td style="text-align: right;">
+                        <input type="number" step="any" class="sales-input" value="${m.personalSales}" oninput="updateSales('${m.id}', this.value)"> tỷ
+                    </td>
+                </tr>
+            `;
+        });
 
-            <!-- Dự án 4: Tân Trào -->
-            <a href="https://reseachvna.github.io/PTG_Tantrao/" target="_blank" class="card">
-                <img src="Tan trao.png" alt="Heritage Onsen & Resort" class="card-image">
-                <div class="card-content">
-                    <h3 class="card-title">Flamingo Heritage Onsen & Resort</h3>
-                    <span class="card-arrow">➔</span>
-                </div>
-            </a>
+        // Render Bảng Kết Quả Tính Thưởng
+        const rewardBody = document.getElementById('rewardTableBody');
+        rewardBody.innerHTML = '';
+        calculatedData.forEach(m => {
+            const directRewardVnd = (m.directReward * 1000000000).toLocaleString('vi-VN');
+            const realRewardVnd = (m.realReward * 1000000000).toLocaleString('vi-VN');
+            
+            rewardBody.innerHTML += `
+                <tr>
+                    <td><strong>${m.name}</strong></td>
+                    <td><span class="badge">F${m.level}</span></td>
+                    <td>${m.personalSales} tỷ</td>
+                    <td style="color: #2563eb; font-weight:bold;">${m.groupSales} tỷ</td>
+                    <td><small>${m.mốcLabel}</small></td>
+                    <td style="color:#64748b;">${directRewardVnd} đ</td>
+                    <td style="color:#16a34a; font-weight:bold;">${realRewardVnd} đ</td>
+                </tr>
+            `;
+        });
 
-            <!-- Dự án 5: Ibiza Hải Tiến -->
-            <a href="https://reseachvna.github.io/PTG-IbizaThT/" target="_blank" class="card">
-                <img src="Ibiza Hai tien.png" alt="Ibiza Hải Tiến" class="card-image">
-                <div class="card-content">
-                    <h3 class="card-title">Ibiza Hải Tiến</h3>
-                    <span class="card-arrow">➔</span>
-                </div>
-            </a>
+        // Vẽ sơ đồ cây trực quan dạng HTML CSS
+        const treeRoot = document.getElementById('treeRoot');
+        treeRoot.innerHTML = '';
+        
+        // Tìm các F0 gốc (không có parentId)
+        const roots = calculatedData.filter(m => m.parentId === null);
+        if(roots.length > 0) {
+            const ul = document.createElement('ul');
+            roots.forEach(root => {
+                ul.appendChild(renderTreeNode(root, calculatedData));
+            });
+            treeRoot.appendChild(ul);
+        } else {
+            treeRoot.innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8;">Chưa có cây hệ thống. Vui lòng thêm F0 hoặc nạp dữ liệu mẫu.</p>';
+        }
+    }
 
-        </div>
-    </div>
+    // Đệ quy vẽ từng node nhánh cây
+    function renderTreeNode(node, allData) {
+        const li = document.createElement('li');
+        
+        const nodeDiv = document.createElement('div');
+        nodeDiv.className = 'tree-node';
+        nodeDiv.innerHTML = `
+            <div class="name">F${node.level}: ${node.id}</div>
+            <div class="details">
+                • DS riêng: <b>${node.personalSales} tỷ</b><br>
+                • DS nhóm: <b style="color:blue;">${node.groupSales} tỷ</b><br>
+                • Thưởng: <b style="color:green;">${(node.realReward * 100).toFixed(1)}M</b>
+            </div>
+        `;
+        li.appendChild(nodeDiv);
 
-    <div class="footer">
-        © Developed by <strong>DMD – R&D FLV</strong> | Hệ thống F-Deal
-    </div>
+        // Tìm con trực tiếp
+        const children = allData.filter(m => m.parentId === node.id);
+        if(children.length > 0) {
+            const ul = document.createElement('ul');
+            children.forEach(child => {
+                ul.appendChild(renderTreeNode(child, allData));
+            });
+            li.appendChild(ul);
+        }
+        return li;
+    }
+
+    // Chạy mặc định khởi tạo ứng dụng rỗng ban đầu
+    updateApp();
+</script>
 
 </body>
 </html>
