@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Quản Lý Doanh Số & Thưởng Hệ Thống</title>
+    <title>Hệ Thống Quản Lý Doanh Số & Thưởng Hệ Thống - PREMIUM</title>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -129,7 +129,7 @@
     </header>
 
     <div class="storage-alert">
-        💾 Hệ thống tự động lưu trữ tức thời
+        💾 Hệ thống tự động lưu trữ tức thời trên trình duyệt máy tính cá nhân của bạn.
     </div>
 
     <div class="row-top">
@@ -221,7 +221,7 @@
 
     <div class="row-bottom">
         <div class="card">
-            <h2>4. Sơ Đồ Cây Hệ Thống Phân Cấp </h2>
+            <h2>4. Sơ Đồ Cây Hệ Thống Phân Cấp Trực Quan (Toàn màn hình)</h2>
             <div class="tree-container">
                 <div class="tree clearfix" id="treeRoot"></div>
             </div>
@@ -235,7 +235,7 @@
 
 <script>
     // URL Web App Google Apps Script của bạn đã được đóng gói chuẩn
-    const GOOGLE_SCRIPT_URL = https://script.google.com/macros/s/AKfycbzn9zliJyg_QXR1rY-BlLGZCMi4dACN3aBx4k4i4LEKI-CivKYh3NF9WXmV9awO-FGx3A/exec;
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgPc3Nv5aQVHthKB4qBlxTLzkPTbdk2A3ga3wzaEJHEGyJZEP4msvIZuRt_V3oG4kl-g/exec';
 
     function getStoredData() {
         const stored = localStorage.getItem('company_mlm_premium_v1');
@@ -426,7 +426,7 @@
         // Khối giao diện 3: Đồng bộ Tabs F0 độc lập động
         const f0FilterBar = document.getElementById('f0FilterBar');
         const activeRoots = calculatedData.filter(m => m.parentId === null);
-        `
+        
         if(currentSelectedF0 !== 'ALL' && !activeRoots.some(r => r.id === currentSelectedF0)) {
             currentSelectedF0 = 'ALL';
         }
