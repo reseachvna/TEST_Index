@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý Đội Nhóm & Doanh Số MLM</title>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         :root {
             --primary-color: #2563eb;
             --success-color: #16a34a;
+            --danger-color: #dc2626;
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --text-color: #1e293b;
@@ -43,29 +45,33 @@
             margin-bottom: 10px;
         }
 
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
         .btn {
-            background-color: var(--primary-color);
             color: white;
             border: none;
             padding: 10px 16px;
             border-radius: 6px;
             cursor: pointer;
-            font-weight: 6px;
             font-weight: 600;
             transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .btn:hover {
-            opacity: 0.9;
-        }
+        .btn-primary { background-color: var(--primary-color); }
+        .btn-success { background-color: var(--success-color); }
+        .btn-danger { background-color: var(--danger-color); }
+        .btn-demo { background-color: #475569; }
 
-        .btn-success {
-            background-color: var(--success-color);
-        }
-
-        .btn-demo {
-            background-color: #475569;
-        }
+        .btn:hover { opacity: 0.9; }
 
         .grid {
             display: grid;
@@ -74,9 +80,7 @@
         }
 
         @media (max-width: 992px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
+            .grid { grid-template-columns: 1fr; }
         }
 
         .card {
@@ -93,12 +97,12 @@
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 8px;
             color: #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
-
+        .form-group { margin-bottom: 15px; }
         .form-group label {
             display: block;
             margin-bottom: 5px;
@@ -115,11 +119,8 @@
             font-size: 1rem;
         }
 
-        .form-control:focus {
-            border-color: var(--primary-color);
-        }
+        .form-control:focus { border-color: var(--primary-color); }
 
-        /* Table styles */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -138,9 +139,7 @@
             font-weight: 600;
         }
 
-        tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
+        tr:nth-child(even) { background-color: #f8fafc; }
 
         .sales-input {
             width: 80px;
@@ -150,13 +149,21 @@
             text-align: right;
         }
 
+        .btn-delete {
+            background: none;
+            border: none;
+            color: var(--danger-color);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .btn-delete:hover { text-decoration: underline; }
+
         /* Tree view style */
         .tree ul {
             padding-top: 20px; 
             position: relative;
             transition: all 0.5s;
         }
-
         .tree li {
             float: left; 
             text-align: center;
@@ -165,65 +172,30 @@
             padding: 20px 5px 0 5px;
             transition: all 0.5s;
         }
-
         .tree li::before, .tree li::after {
             content: '';
-            position: absolute; 
-            top: 0; 
-            right: 50%;
+            position: absolute; top: 0; right: 50%;
             border-top: 1px solid #ccc;
-            width: 50%; 
-            height: 20px;
+            width: 50%; height: 20px;
         }
-        .tree li::after {
-            right: auto; 
-            left: 50%;
-            border-left: 1px solid #ccc;
-        }
-
-        .tree li:only-child::after, .tree li:only-child::before {
-            display: none;
-        }
-
-        .tree li:only-child { 
-            padding-top: 0;
-        }
-
-        .tree li:first-child::before, .tree li:last-child::after {
-            border: 0 none;
-        }
-
-        .tree li:last-child::before {
-            border-right: 1px solid #ccc;
-            border-radius: 0 5px 0 0;
-        }
-        .tree li:first-child::after {
-            border-radius: 5px 0 0 0;
-        }
-
-        .tree ul ul::before {
-            content: '';
-            position: absolute; 
-            top: 0; 
-            left: 50%;
-            border-left: 1px solid #ccc;
-            width: 0; 
-            height: 20px;
-        }
+        .tree li::after { right: auto; left: 50%; border-left: 1px solid #ccc; }
+        .tree li:only-child::after, .tree li:only-child::before { display: none; }
+        .tree li:only-child { padding-top: 0; }
+        .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
+        .tree li:last-child::before { border-right: 1px solid #ccc; border-radius: 0 5px 0 0; }
+        .tree li:first-child::after { border-radius: 5px 0 0 0; }
+        .tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 1px solid #ccc; width: 0; height: 20px; }
 
         .tree-node {
             border: 1px solid #ccc;
             padding: 8px 12px;
-            text-decoration: none;
             color: #666;
             font-size: 0.85rem;
             display: inline-block;
             border-radius: 5px;
             background-color: white;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            transition: all 0.5s;
         }
-
         .tree-node .name {
             font-weight: bold;
             color: #1e293b;
@@ -233,35 +205,11 @@
             margin-bottom: 4px;
             display: inline-block;
         }
-
-        .tree-node .details {
-            font-size: 0.8rem;
-            text-align: left;
-        }
-
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-        
-        .tree-container {
-            overflow-x: auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: white;
-            background-color: #64748b;
-        }
+        .tree-node .details { font-size: 0.8rem; text-align: left; }
+        .clearfix::after { content: ""; clear: both; display: table; }
+        .tree-container { overflow-x: auto; padding: 20px; background: white; border-radius: 8px; border: 1px solid var(--border-color); }
+        .badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; color: white; background-color: #64748b; }
+        .storage-alert { background-color: #ecfdf5; color: #065f46; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 0.9rem; border: 1px solid #a7f3d0; text-align: center; }
     </style>
 </head>
 <body>
@@ -269,9 +217,16 @@
 <div class="container">
     <header>
         <h1>Hệ Thống Quản Lý Đội Nhóm & Doanh Số</h1>
-        <p>Ứng dụng cấu trúc cây thụ động - Tự động tính toán doanh số cuộn và hoa hồng theo mốc</p>
-        <button class="btn btn-demo" onclick="loadDemoData()" style="margin-top: 10px;">⚡ Nạp dữ liệu mẫu giống ảnh</button>
+        <p>Hệ thống tự động lưu trữ trên trình duyệt của bạn (F5 không mất dữ liệu)</p>
+        <div class="btn-group">
+            <button class="btn btn-demo" onclick="loadDemoData()">⚡ Nạp dữ liệu mẫu giống ảnh</button>
+            <button class="btn btn-danger" onclick="clearAllData()">🗑️ Xóa toàn bộ dữ liệu làm lại</button>
+        </div>
     </header>
+
+    <div class="storage-alert" id="storageNotice">
+        💾 <b>Trạng thái:</b> Dữ liệu đang được tự động lưu cục bộ trên trình duyệt của bạn.
+    </div>
 
     <div class="grid">
         <div>
@@ -288,7 +243,7 @@
                             <option value="">-- Không có (Là F0 gốc) --</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn">Thêm thành viên</button>
+                    <button type="submit" class="btn btn-primary">Thêm thành viên</button>
                 </form>
             </div>
 
@@ -299,12 +254,12 @@
                         <thead>
                             <tr>
                                 <th>Thành viên</th>
-                                <th>Cấp bậc</th>
+                                <th>Cấp</th>
                                 <th style="text-align: right;">Doanh số cá nhân</th>
+                                <th style="text-align: center;">Xóa</th>
                             </tr>
                         </thead>
-                        <tbody id="salesTableBody">
-                            </tbody>
+                        <tbody id="salesTableBody"></tbody>
                     </table>
                 </div>
             </div>
@@ -312,35 +267,34 @@
 
         <div>
             <div class="card">
-                <h2>3. Bảng Tính Thưởng Hệ Thống</h2>
+                <h2>
+                    3. Bảng Tính Thưởng Hệ Thống
+                    <button class="btn btn-success" onclick="exportToExcel()" style="font-size: 0.85rem; padding: 6px 12px;">
+                        📥 Xuất Excel (.xlsx)
+                    </button>
+                </h2>
                 <div style="overflow-x: auto;">
-                    <table>
+                    <table id="rewardTable">
                         <thead>
                             <tr>
                                 <th>Họ tên</th>
-                                <th>Cấp</th>
-                                <th>DS Cá nhân</th>
-                                <th>DS Nhóm (Cuộn)</th>
+                                <th>Cấp bậc</th>
+                                <th>DS Cá nhân (Tỷ)</th>
+                                <th>DS Nhóm (Tỷ)</th>
                                 <th>Mốc đạt</th>
                                 <th>Thưởng Trực Tiếp</th>
                                 <th>Thưởng Thực Tế (Hiệu số)</th>
                             </tr>
                         </thead>
-                        <tbody id="rewardTableBody">
-                            </tbody>
+                        <tbody id="rewardTableBody"></tbody>
                     </table>
-                </div>
-                <div style="margin-top: 10px; font-size: 0.85rem; color: #64748b;">
-                    * <strong>Thưởng Trực Tiếp:</strong> % Mốc hưởng x Tổng DS nhóm.<br>
-                    * <strong>Thưởng Thực Tế (Hiệu số):</strong> Đã khấu trừ phần tiền hoa hồng mà các nhánh F1 trực thuộc nhận (Đúng quy chuẩn MLM thực tế).
                 </div>
             </div>
 
             <div class="card">
                 <h2>4. Sơ Đồ Cây Hệ Thống</h2>
                 <div class="tree-container">
-                    <div class="tree clearfix" id="treeRoot">
-                        </div>
+                    <div class="tree clearfix" id="treeRoot"></div>
                 </div>
             </div>
         </div>
@@ -348,10 +302,14 @@
 </div>
 
 <script>
-    // Khởi tạo danh sách thành viên ban đầu rỗng
-    let members = [];
+    // Hàm tải dữ liệu từ LocalStorage khi khởi động trang
+    function getStoredMembers() {
+        const stored = localStorage.getItem('mlm_members_data');
+        return stored ? JSON.parse(stored) : [];
+    }
 
-    // Cấu hình các mốc thưởng
+    let members = getStoredMembers();
+
     const rewardMilestones = [
         { min: 100, rate: 0.03, label: "Mốc 4 (3%)" },
         { min: 50,  rate: 0.02, label: "Mốc 3 (2%)" },
@@ -360,24 +318,37 @@
         { min: 0,   rate: 0, label: "Không đạt" }
     ];
 
-    // Hàm nạp dữ liệu mẫu từ ảnh của khách hàng
-    function loadDemoData() {
-        members = [
-            { id: "A", name: "Sale in-house A", parentId: null, personalSales: 18 },
-            { id: "B", name: "CTV B", parentId: "A", personalSales: 8 },
-            { id: "C", name: "CTV C", parentId: "A", personalSales: 9 },
-            { id: "D", name: "CTV D", parentId: "B", personalSales: 16 },
-            { id: "E", name: "CTV E", parentId: "B", personalSales: 15 },
-            { id: "G", name: "CTV G", parentId: "E", personalSales: 25 },
-            { id: "H", name: "CTV H", parentId: "E", personalSales: 4 },
-            { id: "L", name: "CTV L", parentId: "G", personalSales: 0 },
-            { id: "I", name: "CTV I", parentId: "H", personalSales: 3 },
-            { id: "K", name: "CTV K", parentId: "H", personalSales: 2 }
-        ];
-        updateApp();
+    function saveToStorage() {
+        localStorage.setItem('mlm_members_data', JSON.stringify(members));
     }
 
-    // Thêm thành viên mới qua Form
+    function loadDemoData() {
+        if(confirm("Bạn có chắc chắn muốn nạp dữ liệu mẫu? Dữ liệu hiện tại sẽ bị ghi đè.")){
+            members = [
+                { id: "A", name: "Sale in-house A", parentId: null, personalSales: 18 },
+                { id: "B", name: "CTV B", parentId: "A", personalSales: 8 },
+                { id: "C", name: "CTV C", parentId: "A", personalSales: 9 },
+                { id: "D", name: "CTV D", parentId: "B", personalSales: 16 },
+                { id: "E", name: "CTV E", parentId: "B", personalSales: 15 },
+                { id: "G", name: "CTV G", parentId: "E", personalSales: 25 },
+                { id: "H", name: "CTV H", parentId: "E", personalSales: 4 },
+                { id: "L", name: "CTV L", parentId: "G", personalSales: 0 },
+                { id: "I", name: "CTV I", parentId: "H", personalSales: 3 },
+                { id: "K", name: "CTV K", parentId: "H", personalSales: 2 }
+            ];
+            saveToStorage();
+            updateApp();
+        }
+    }
+
+    function clearAllData() {
+        if(confirm("Bạn có chắc chắn muốn XÓA HẾT dữ liệu thành viên và doanh số không?")) {
+            members = [];
+            saveToStorage();
+            updateApp();
+        }
+    }
+
     function addMember(e) {
         e.preventDefault();
         const nameInput = document.getElementById('memberName');
@@ -385,7 +356,7 @@
         
         const name = nameInput.value.trim();
         const parentId = parentSelect.value || null;
-        const id = 'M_' + Date.now(); // Tạo ID ngẫu nhiên không trùng
+        const id = name.replace(/\s+/g, '_') + '_' + Math.floor(Math.random() * 1000); 
 
         if(!name) return;
 
@@ -393,30 +364,47 @@
             id: id,
             name: name,
             parentId: parentId,
-            personalSales: 0 // Ban đầu tạo mới mặc định doanh số = 0
+            personalSales: 0
         });
 
         nameInput.value = '';
+        saveToStorage();
         updateApp();
     }
 
-    // Cập nhật doanh số khi user thay đổi ô input
+    function deleteMember(id) {
+        if(confirm("Xóa thành viên này sẽ đưa các CTV cấp dưới trực thuộc của họ (nếu có) lên làm tuyến dưới của cấp trên nữa. Bạn có chắc muốn xóa?")) {
+            const target = members.find(m => m.id === id);
+            if(!target) return;
+            
+            // Chuyển con của người bị xóa lên cho cha của người bị xóa quản lý
+            members.forEach(m => {
+                if(m.parentId === id) {
+                    m.parentId = target.parentId;
+                }
+            });
+
+            members = members.filter(m => m.id !== id);
+            saveToStorage();
+            updateApp();
+        }
+    }
+
     function updateSales(id, val) {
         const member = members.find(m => m.id === id);
         if(member) {
             member.personalSales = parseFloat(val) || 0;
+            saveToStorage(); // Lưu ngay lập tức khi gõ số
             calculateAndRender();
         }
     }
 
-    // Hàm đệ quy tính toán độ sâu cấp bậc (F0, F1, F2...)
     function getLevel(member) {
         if (!member.parentId) return 0;
         const parent = members.find(m => m.id === member.parentId);
         return parent ? getLevel(parent) + 1 : 0;
     }
 
-    // Hàm đệ quy tính tổng doanh số nhóm (gồm mình và toàn bộ cấp dưới)
     function getGroupSales(memberId) {
         let member = members.find(m => m.id === memberId);
         if(!member) return 0;
@@ -430,14 +418,11 @@
         return total;
     }
 
-    // Xác định tỷ lệ và mốc thưởng dựa vào doanh số nhóm
     function getRewardConfig(groupSales) {
         return rewardMilestones.find(m => groupSales >= m.min);
     }
 
-    // Cập nhật lại toàn bộ ứng dụng (Dropdown, Bảng nhập, Sơ đồ)
     function updateApp() {
-        // 1. Cập nhật danh sách chọn Cấp Trên (Dropdown)
         const parentSelect = document.getElementById('memberParent');
         parentSelect.innerHTML = '<option value="">-- Không có (Là F0 gốc) --</option>';
         members.forEach(m => {
@@ -447,9 +432,10 @@
         calculateAndRender();
     }
 
-    // Tính toán số liệu và đổ ra HTML hiển thị
+    // Biến toàn cục để giữ dữ liệu đã tính toán phục vụ xuất file Excel
+    let globalCalculatedData = [];
+
     function calculateAndRender() {
-        // Mảng lưu kết quả tính toán chi tiết
         let calculatedData = members.map(m => {
             const gSales = getGroupSales(m.id);
             const mốc = getRewardConfig(gSales);
@@ -464,25 +450,22 @@
             };
         });
 
-        // Tính toán Thưởng Thực Tế theo Cơ Chế Hiệu Số (Khấu trừ thưởng F1 trực hệ)
         calculatedData = calculatedData.map(m => {
             let directReward = m.directReward;
-            // Tìm các F1 trực tiếp của người này
             let f1s = calculatedData.filter(child => child.parentId === m.id);
-            // Tiền thưởng thực nhận = Thưởng tổng nhóm mình - Tổng thưởng của các nhóm F1
             let totalF1Reward = f1s.reduce((sum, f1) => sum + f1.directReward, 0);
             let realReward = directReward - totalF1Reward;
             
             return {
                 ...m,
-                realReward: realReward > 0 ? realReward : 0 // Tránh số âm nếu bên dưới vượt cấp vượt mốc
+                realReward: realReward > 0 ? realReward : 0
             };
         });
 
-        // Sắp xếp hiển thị bảng theo thứ tự cấp bậc F0 -> F1 -> F2
         calculatedData.sort((a, b) => a.level - b.level);
+        globalCalculatedData = calculatedData; // Đồng bộ sang biến toàn cục
 
-        // Render Bảng Nhập Doanh Số Nhanh
+        // 1. Vẽ bảng nhập liệu doanh số
         const salesBody = document.getElementById('salesTableBody');
         salesBody.innerHTML = '';
         calculatedData.forEach(m => {
@@ -493,11 +476,14 @@
                     <td style="text-align: right;">
                         <input type="number" step="any" class="sales-input" value="${m.personalSales}" oninput="updateSales('${m.id}', this.value)"> tỷ
                     </td>
+                    <td style="text-align:center;">
+                        <button class="btn-delete" onclick="deleteMember('${m.id}')">❌</button>
+                    </td>
                 </tr>
             `;
         });
 
-        // Render Bảng Kết Quả Tính Thưởng
+        // 2. Vẽ bảng kết quả tính thưởng
         const rewardBody = document.getElementById('rewardTableBody');
         rewardBody.innerHTML = '';
         calculatedData.forEach(m => {
@@ -517,11 +503,10 @@
             `;
         });
 
-        // Vẽ sơ đồ cây trực quan dạng HTML CSS
+        // 3. Vẽ sơ đồ cây hệ thống trực quan
         const treeRoot = document.getElementById('treeRoot');
         treeRoot.innerHTML = '';
         
-        // Tìm các F0 gốc (không có parentId)
         const roots = calculatedData.filter(m => m.parentId === null);
         if(roots.length > 0) {
             const ul = document.createElement('ul');
@@ -530,27 +515,24 @@
             });
             treeRoot.appendChild(ul);
         } else {
-            treeRoot.innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8;">Chưa có cây hệ thống. Vui lòng thêm F0 hoặc nạp dữ liệu mẫu.</p>';
+            treeRoot.innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8;">Hệ thống trống. Hãy thêm thành viên hoặc nhấn "Nạp dữ liệu mẫu".</p>';
         }
     }
 
-    // Đệ quy vẽ từng node nhánh cây
     function renderTreeNode(node, allData) {
         const li = document.createElement('li');
-        
         const nodeDiv = document.createElement('div');
         nodeDiv.className = 'tree-node';
         nodeDiv.innerHTML = `
-            <div class="name">F${node.level}: ${node.id}</div>
+            <div class="name">F${node.level}: ${node.name}</div>
             <div class="details">
                 • DS riêng: <b>${node.personalSales} tỷ</b><br>
                 • DS nhóm: <b style="color:blue;">${node.groupSales} tỷ</b><br>
-                • Thưởng: <b style="color:green;">${(node.realReward * 100).toFixed(1)}M</b>
+                • Thưởng thực tế: <b style="color:green;">${(node.realReward * 1000).toFixed(1)} Triệu</b>
             </div>
         `;
         li.appendChild(nodeDiv);
 
-        // Tìm con trực tiếp
         const children = allData.filter(m => m.parentId === node.id);
         if(children.length > 0) {
             const ul = document.createElement('ul');
@@ -562,7 +544,39 @@
         return li;
     }
 
-    // Chạy mặc định khởi tạo ứng dụng rỗng ban đầu
+    // HÀM XUẤT FILE EXCEL CHUẨN SỬ DỤNG LÝ THUYẾT SHEETJS
+    function exportToExcel() {
+        if(globalCalculatedData.length === 0) {
+            alert("Không có dữ liệu để xuất!");
+            return;
+        }
+
+        // Định dạng cấu trúc dữ liệu xuất ra hàng và cột của Excel
+        const excelRows = globalCalculatedData.map(m => ({
+            "Họ và Tên": m.name,
+            "Cấp bậc hệ thống": `F${m.level}`,
+            "Doanh số Cá Nhân (Tỷ)": m.personalSales,
+            "Doanh số Nhóm Cộng Dồn (Tỷ)": m.groupSales,
+            "Mốc hoa hồng đạt được": m.mốcLabel,
+            "Tỷ lệ % mốc": `${(m.rate * 100).toFixed(1)}%`,
+            "Tiền thưởng tổng nhóm (VND)": m.directReward * 1000000000,
+            "Tiền thưởng thực nhận - Hiệu số (VND)": m.realReward * 1000000000
+        }));
+
+        // Khởi tạo một workbook (sách bài tập) mới
+        const worksheet = XLSX.utils.json_to_sheet(excelRows);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Báo cáo Doanh số Thưởng");
+
+        // Cài đặt độ rộng tự động cho các cột để file Excel đẹp mắt hơn
+        const maxProps = [25, 18, 22, 26, 22, 12, 28, 38];
+        worksheet["!cols"] = maxProps.map(w => ({ w: w }));
+
+        // Tải xuống file Excel về máy cá nhân của người dùng
+        XLSX.writeFile(workbook, `Bao_Cao_Doanh_So_Thuong_${new Date().toISOString().slice(0,10)}.xlsx`);
+    }
+
+    // Chạy khởi tạo ứng dụng
     updateApp();
 </script>
 
