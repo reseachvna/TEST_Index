@@ -247,7 +247,7 @@
 /* ================= BODY ================= */
 
 body{
-    margin-top:72px;
+    margin-top:68px;
 }
 
 /* ================= TOP BAR ================= */
@@ -260,7 +260,7 @@ body{
     left:0;
 
     width:100%;
-    height:72px;
+    height:68px;
 
     background:rgba(255,255,255,0.96);
 
@@ -281,7 +281,7 @@ body{
 
 .promo-marquee{
 
-    font-size:24px;
+    font-size:20px;
 
     font-weight:900;
 
@@ -289,7 +289,7 @@ body{
 
     white-space:nowrap;
 
-    animation:marqueeMove 3s ease-in-out infinite alternate;
+    animation:marqueeMove 2s ease-in-out infinite alternate;
 }
 
 /* ================= POPUP ================= */
@@ -300,9 +300,9 @@ body{
 
     inset:0;
 
-    background:rgba(0,0,0,0.45);
+    background:rgba(0,0,0,0.42);
 
-    backdrop-filter:blur(5px);
+    backdrop-filter:blur(4px);
 
     display:flex;
 
@@ -312,7 +312,7 @@ body{
 
     z-index:99999;
 
-    padding:24px;
+    padding:20px;
 
     box-sizing:border-box;
 }
@@ -321,7 +321,7 @@ body{
 
     width:100%;
 
-    max-width:820px;
+    max-width:620px;
 
     background:
     linear-gradient(
@@ -330,16 +330,16 @@ body{
         #f8fbff
     );
 
-    border-radius:40px;
+    border-radius:28px;
 
-    padding:48px;
+    padding:34px;
 
     position:relative;
 
     overflow:hidden;
 
     box-shadow:
-    0 30px 80px rgba(0,0,0,0.18);
+    0 24px 60px rgba(0,0,0,0.16);
 }
 
 .promo-modal::before{
@@ -348,20 +348,20 @@ body{
 
     position:absolute;
 
-    width:320px;
-    height:320px;
+    width:260px;
+    height:260px;
 
     background:
     radial-gradient(
         circle,
-        rgba(210,167,79,0.16),
+        rgba(210,167,79,0.14),
         transparent 70%
     );
 
     border-radius:50%;
 
-    top:-140px;
-    right:-100px;
+    top:-120px;
+    right:-90px;
 }
 
 /* ================= CLOSE ================= */
@@ -370,11 +370,11 @@ body{
 
     position:absolute;
 
-    top:18px;
-    right:18px;
+    top:16px;
+    right:16px;
 
-    width:46px;
-    height:46px;
+    width:42px;
+    height:42px;
 
     border:none;
 
@@ -382,7 +382,7 @@ body{
 
     background:#eef2f7;
 
-    font-size:24px;
+    font-size:22px;
 
     font-weight:700;
 
@@ -406,33 +406,33 @@ body{
 
     color:white;
 
-    padding:14px 30px;
+    padding:12px 24px;
 
     border-radius:999px;
 
-    font-size:16px;
+    font-size:14px;
 
     font-weight:900;
 
     letter-spacing:1px;
 
-    margin-bottom:26px;
+    margin-bottom:22px;
 
     box-shadow:
-    0 10px 30px rgba(207,161,75,0.35);
+    0 8px 24px rgba(207,161,75,0.28);
 }
 
 .promo-modal h1{
 
     text-align:center;
 
-    font-size:58px;
+    font-size:42px;
 
-    line-height:1.15;
+    line-height:1.2;
 
     color:#11284c;
 
-    margin-bottom:20px;
+    margin-bottom:16px;
 
     font-weight:900;
 
@@ -444,14 +444,14 @@ body{
     color:#d0a24a;
 
     text-shadow:
-    0 0 12px rgba(255,220,140,0.9);
+    0 0 10px rgba(255,220,140,0.85);
 }
 
 .promo-subtitle{
 
     text-align:center;
 
-    font-size:24px;
+    font-size:18px;
 
     line-height:1.6;
 
@@ -459,7 +459,7 @@ body{
 
     font-weight:700;
 
-    margin-bottom:36px;
+    margin-bottom:28px;
 }
 
 /* ================= COUNTDOWN ================= */
@@ -468,13 +468,13 @@ body{
 
     text-align:center;
 
-    font-size:22px;
+    font-size:18px;
 
     font-weight:900;
 
     color:#0f274d;
 
-    margin-bottom:18px;
+    margin-bottom:16px;
 }
 
 .countdown-wrapper{
@@ -483,32 +483,32 @@ body{
 
     justify-content:center;
 
-    gap:16px;
+    gap:12px;
 
-    margin-bottom:40px;
+    margin-bottom:30px;
 
     flex-wrap:wrap;
 }
 
 .count-item{
 
-    width:110px;
+    width:82px;
 
     background:white;
 
-    border-radius:24px;
+    border-radius:20px;
 
-    padding:20px;
+    padding:16px;
 
     text-align:center;
 
     box-shadow:
-    0 12px 30px rgba(0,0,0,0.06);
+    0 10px 24px rgba(0,0,0,0.05);
 }
 
 .count-item div{
 
-    font-size:38px;
+    font-size:28px;
 
     font-weight:900;
 
@@ -517,7 +517,7 @@ body{
 
 .count-item span{
 
-    font-size:13px;
+    font-size:12px;
 
     font-weight:800;
 
@@ -532,40 +532,40 @@ body{
 
     grid-template-columns:1fr 1fr;
 
-    gap:22px;
+    gap:16px;
 }
 
 .promo-card{
 
     background:white;
 
-    border-radius:30px;
+    border-radius:22px;
 
-    padding:34px 24px;
+    padding:24px 18px;
 
     text-align:center;
 
     box-shadow:
-    0 18px 40px rgba(0,0,0,0.06);
+    0 14px 30px rgba(0,0,0,0.05);
 
     transition:0.3s;
 }
 
 .promo-card:hover{
 
-    transform:translateY(-4px);
+    transform:translateY(-3px);
 }
 
 .promo-icon{
 
-    font-size:32px;
+    font-size:26px;
 
-    margin-bottom:16px;
+    margin-bottom:12px;
 }
 
 .promo-title{
 
-    font-size:24px;
+    font-size:18px;
 
     line-height:1.6;
 
@@ -576,9 +576,9 @@ body{
 
 .promo-desc{
 
-    margin-top:8px;
+    margin-top:6px;
 
-    font-size:16px;
+    font-size:14px;
 
     color:#6d7685;
 
@@ -589,11 +589,11 @@ body{
 
 .promo-note{
 
-    margin-top:38px;
+    margin-top:28px;
 
     text-align:center;
 
-    font-size:22px;
+    font-size:17px;
 
     line-height:1.7;
 
@@ -607,11 +607,11 @@ body{
 @keyframes marqueeMove{
 
     from{
-        transform:translateX(-20px);
+        transform:translateX(-35px);
     }
 
     to{
-        transform:translateX(20px);
+        transform:translateX(35px);
     }
 }
 
@@ -620,30 +620,30 @@ body{
 @media(max-width:768px){
 
     body{
-        margin-top:82px;
+        margin-top:78px;
     }
 
     .top-promo-bar{
-        height:82px;
-        padding:0 12px;
+        height:78px;
+        padding:0 10px;
     }
 
     .promo-marquee{
-        font-size:16px;
+        font-size:15px;
         text-align:center;
     }
 
     .promo-modal{
-        padding:34px 22px;
-        border-radius:30px;
+        padding:28px 18px;
+        border-radius:24px;
     }
 
     .promo-modal h1{
-        font-size:38px;
+        font-size:32px;
     }
 
     .promo-subtitle{
-        font-size:18px;
+        font-size:16px;
     }
 
     .promo-grid{
@@ -651,16 +651,16 @@ body{
     }
 
     .count-item{
-        width:74px;
-        padding:14px;
+        width:68px;
+        padding:12px;
     }
 
     .count-item div{
-        font-size:28px;
+        font-size:24px;
     }
 
     .promo-title{
-        font-size:19px;
+        font-size:17px;
     }
 
 }
