@@ -170,11 +170,25 @@ body.lock-scroll{
     align-items:center;
     z-index:9999;
     border-bottom:1px solid #eee;
+    overflow:hidden;
 }
 
+/* ✅ FIX MARQUEE CHẠY LIÊN TỤC */
 .promo-marquee{
     font-weight:900;
-    animation:move 10s linear infinite;
+    white-space:nowrap;
+    display:inline-block;
+    animation:marqueeMove 12s linear infinite;
+}
+
+/* KEYFRAME CHẠY MƯỢT */
+@keyframes marqueeMove{
+    0%{
+        transform:translateX(100%);
+    }
+    100%{
+        transform:translateX(-100%);
+    }
 }
 
 /* ================= POPUP ================= */
@@ -187,8 +201,6 @@ body.lock-scroll{
     align-items:center;
     justify-content:center;
     padding:18px;
-
-    /* ULTRA TOP LAYER */
     z-index:2147483647;
 }
 
