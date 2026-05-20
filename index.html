@@ -3,76 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Quản Lý Doanh Số & Lưu Trữ Đa Kỳ</title>
+    <title>Hệ Thống Quản Lý Doanh Số & Thưởng Hệ Thống - PREMIUM</title>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2563eb;
-            --success-color: #16a34a;
-            --danger-color: #dc2626;
-            --bg-color: #f8fafc;
+            --primary-color: #0f172a; /* Slate Dark - Màu tối sang trọng */
+            --accent-color: #2563eb;  /* Royal Blue - Màu nhấn công nghệ */
+            --success-color: #059669; /* Emerald Green - Màu xanh tài lộc */
+            --danger-color: #e11d48;  /* Rose Red */
+            --bg-color: #f1f5f9;      /* Light Gray Bg */
             --card-bg: #ffffff;
-            --text-color: #1e293b;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
             --border-color: #e2e8f0;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); padding: 20px; line-height: 1.6; }
-        .container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 30px 20px; line-height: 1.5; letter-spacing: -0.01em; }
+        .container { max-width: 1600px; margin: 0 auto; }
         
-        header { text-align: center; margin-bottom: 25px; }
-        header h1 { color: var(--primary-color); margin-bottom: 8px; font-size: 1.8rem; }
+        /* Header cao cấp */
+        header { text-align: center; margin-bottom: 30px; padding-bottom: 10px; }
+        header h1 { color: var(--primary-color); font-weight: 700; font-size: 2.2rem; letter-spacing: -0.03em; margin-bottom: 10px; }
         
-        .btn-group { display: flex; justify-content: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
-        .btn { color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+        /* Nhóm nút bấm thiết kế phẳng phẳng, đổ bóng mờ */
+        .btn-group { display: flex; justify-content: center; gap: 12px; margin-top: 15px; flex-wrap: wrap; }
+        .btn { color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .btn-primary { background-color: var(--primary-color); }
+        .btn-primary:hover { background-color: #1e293b; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(15,23,42,0.15); }
         .btn-success { background-color: var(--success-color); }
-        .btn-danger { background-color: var(--danger-color); }
-        .btn-cloud { background-color: #9333ea; }
-        .btn-demo { background-color: #475569; }
-        .btn:hover { opacity: 0.9; }
-        .btn:disabled { background-color: #cbd5e1; cursor: not-allowed; }
+        .btn-success:hover { background-color: #047857; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(5,150,105,0.15); }
+        .btn-danger { background-color: #fff; color: var(--danger-color); border: 1px solid #fecdd3; }
+        .btn-danger:hover { background-color: #fff1f2; }
+        .btn-cloud { background-color: #7c3aed; }
+        .btn-cloud:hover { background-color: #6d28d9; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,58,237,0.15); }
+        .btn-demo { background-color: #fff; color: #334155; border: 1px solid var(--border-color); }
+        .btn-demo:hover { background-color: #f8fafc; }
+        .btn:disabled { background-color: #e2e8f0; color: #94a3b8; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
-        .row-top { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-        @media (max-width: 992px) { .row-top { grid-template-columns: 1fr; } }
+        .storage-alert { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); color: #166534; padding: 12px; border-radius: 10px; margin-bottom: 25px; font-size: 0.88rem; font-weight: 500; border: 1px solid #bbf7d0; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01); }
         
+        /* Bố cục lưới Dashboard */
+        .row-top { display: grid; grid-template-columns: 1fr 1.3fr; gap: 25px; margin-bottom: 25px; }
+        @media (max-width: 1200px) { .row-top { grid-template-columns: 1fr; } }
         .row-bottom { width: 100%; }
 
-        .card { background: var(--card-bg); border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-bottom: 20px; border: 1px solid var(--border-color); }
-        .card h2 { font-size: 1.15rem; margin-bottom: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; color: #334155; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        /* Thiết kế Khối (Card) chuẩn quốc tế */
+        .card { background: var(--card-bg); border-radius: 12px; padding: 24px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.02), 0 4px 6px -4px rgba(0, 0, 0, 0.02); margin-bottom: 25px; border: 1px solid rgba(226, 232, 240, 0.8); }
+        .card h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; color: var(--primary-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 0.85rem; }
-        .form-control { width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; outline: none; font-size: 0.95rem; }
-        .form-control:focus { border-color: var(--primary-color); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.85rem; color: #475569; }
+        .form-control { width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-size: 0.92rem; background-color: #f8fafc; transition: all 0.15s; }
+        .form-control:focus { border-color: var(--accent-color); background-color: #fff; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
 
-        /* Bảng biểu */
-        .table-container { max-height: 380px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 6px; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        th, td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; }
-        th { background-color: #f1f5f9; font-weight: 600; position: sticky; top: 0; z-index: 10; }
-        tr:nth-child(even) { background-color: #f8fafc; }
+        /* Tối ưu thiết kế Bảng biểu cao cấp (Không kẻ ô thô cứng) */
+        .table-container { max-height: 400px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 10px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left; }
+        th { background-color: #f8fafc; font-weight: 600; color: #475569; padding: 14px 16px; position: sticky; top: 0; z-index: 10; border-bottom: 2px solid var(--border-color); }
+        td { padding: 14px 16px; border-bottom: 1px solid var(--border-color); color: #334155; vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: #f8fafc; } /* Highlight nhẹ khi hover */
         
-        /* Input nhập số gõ tay tự do, ẩn nút tăng giảm mặc định của trình duyệt */
-        .sales-input { width: 110px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 4px; text-align: right; font-size: 0.95rem; font-weight: bold; color: #0f172a; }
-        .sales-input::-webkit-outer-spin-button,
-        .sales-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        /* Ô gõ số tay tinh tế */
+        .sales-input { width: 105px; padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 6px; text-align: right; font-size: 0.92rem; font-weight: 700; color: var(--primary-color); background-color: #f8fafc; transition: all 0.15s; }
+        .sales-input:focus { background-color: #fff; border-color: var(--accent-color); outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        .sales-input::-webkit-outer-spin-button, .sales-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         .sales-input[type=number] { -moz-appearance: textfield; }
 
-        .btn-delete { background: none; border: none; color: var(--danger-color); cursor: pointer; }
-        .btn-delete:hover { text-decoration: underline; }
+        .btn-delete { background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1rem; transition: color 0.15s; }
+        .btn-delete:hover { color: var(--danger-color); }
 
-        .paste-area { width: 100%; height: 70px; border: 1px dashed #cbd5e1; border-radius: 6px; padding: 8px; font-size: 0.85rem; resize: none; background: #fafafa; outline: none; }
-        .paste-area:focus { border-color: var(--primary-color); background: #fff; }
+        /* Vùng dán nhanh Excel tối giản */
+        .paste-area { width: 100%; height: 75px; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 10px; font-size: 0.85rem; resize: none; background: #f8fafc; outline: none; color: #475569; transition: all 0.15s; }
+        .paste-area:focus { border-color: var(--accent-color); background: #fff; }
 
-        .filter-bar { display: flex; gap: 8px; overflow-x: auto; padding: 5px 0 15px 0; margin-bottom: 10px; border-bottom: 1px dashed var(--border-color); }
-        .filter-tab { padding: 6px 14px; background: #e2e8f0; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; border: none; white-space: nowrap; transition: all 0.2s; }
-        .filter-tab.active { background: var(--primary-color); color: white; box-shadow: 0 2px 4px rgba(37,99,235,0.3); }
+        /* Thanh Tabs lọc F0 dạng viên thuốc (Pills) */
+        .filter-bar { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 16px 0; margin-bottom: 12px; border-bottom: 1px dashed var(--border-color); }
+        .filter-tab { padding: 8px 16px; background: #e2e8f0; color: #475569; border-radius: 30px; cursor: pointer; font-size: 0.82rem; font-weight: 600; border: none; white-space: nowrap; transition: all 0.2s; }
+        .filter-tab:hover { background: #cbd5e1; }
+        .filter-tab.active { background: var(--primary-color); color: white; box-shadow: 0 4px 6px -1px rgba(15,23,42,0.2); }
 
-        /* Sơ đồ cây rộng toàn màn hình */
-        .tree-container { overflow-x: auto; padding: 30px 10px; background: white; border-radius: 8px; border: 1px solid var(--border-color); min-height: 400px; text-align: center; }
+        /* Đồng bộ đám mây Container */
+        .sync-wrapper { background: linear-gradient(135deg, #f5f3ff 0%, #edd4fe 100%); border: 1px solid #d8b4fe; padding: 16px; border-radius: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .sync-box { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 600; color: #4b1aae; }
+
+        /* Nhãn cấp bậc (F0, F1...) màu sắc nhã nhặn */
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; color: #475569; background-color: #e2e8f0; }
+        .badge-f0 { background-color: #fef3c7; color: #92400e; }
+
+        /* SƠ ĐỒ CÂY CAO CẤP TOÀN MÀN HÌNH */
+        .tree-container { overflow-x: auto; padding: 40px 15px; background: #ffffff; border-radius: 10px; border: 1px solid var(--border-color); min-height: 420px; text-align: center; }
         .tree ul { padding-top: 20px; position: relative; transition: all 0.5s; display: inline-flex; justify-content: center; }
-        .tree li { float: left; text-align: center; list-style-type: none; position: relative; padding: 20px 8px 0 8px; transition: all 0.5s; }
+        .tree li { float: left; text-align: center; list-style-type: none; position: relative; padding: 20px 10px 0 10px; transition: all 0.5s; }
         .tree li::before, .tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 1px solid #cbd5e1; width: 50%; height: 20px; }
         .tree li::after { right: auto; left: 50%; border-left: 1px solid #cbd5e1; }
         .tree li:only-child::after, .tree li:only-child::before { display: none; }
@@ -82,69 +106,70 @@
         .tree li:first-child::after { border-radius: 5px 0 0 0; }
         .tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 1px solid #cbd5e1; width: 0; height: 20px; }
 
-        .tree-node { border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 12px; color: #334155; font-size: 0.85rem; display: inline-block; background-color: white; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); min-width: 160px; }
-        .tree-node .name { font-weight: bold; color: #1e293b; background: #fef08a; padding: 3px 8px; border-radius: 4px; margin-bottom: 5px; display: inline-block; border: 1px solid #fde047; }
-        .tree-node .details { font-size: 0.8rem; text-align: left; line-height: 1.4; }
+        /* Khối Node cây dạng thẻ bo góc mềm mịn */
+        .tree-node { border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 16px; color: #334155; font-size: 0.85rem; display: inline-block; background-color: white; box-shadow: 0 4px 10px -1px rgba(0,0,0,0.03), 0 2px 4px -1px rgba(0,0,0,0.02); min-width: 175px; text-align: left; transition: all 0.2s; }
+        .tree-node:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border-color: #cbd5e1; }
+        .tree-node .name { font-weight: 700; color: var(--primary-color); background: #f1f5f9; padding: 4px 8px; border-radius: 6px; margin-bottom: 8px; display: block; border-left: 3px solid var(--accent-color); font-size: 0.88rem; }
+        .tree-node .details { font-size: 0.8rem; line-height: 1.5; color: #475569; }
         .clearfix::after { content: ""; clear: both; display: table; }
-        .badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; color: white; background-color: #64748b; }
-        .storage-alert { background-color: #ecfdf5; color: #065f46; padding: 8px; border-radius: 6px; margin-bottom: 15px; font-size: 0.85rem; border: 1px solid #a7f3d0; text-align: center; }
-        
-        .sync-box { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 600; color: #334155; }
+
+        /* CHÂN TRANG BẢN QUYỀN SANG TRỌNG */
+        footer { text-align: center; margin-top: 40px; padding: 20px 0; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.02em; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>Hệ Thống Quản Lý Đội Nhóm & Lưu Trữ Doanh Số Doanh Nghiệp</h1>
+        <h1>Hệ Thống Quản Lý Doanh Số & Thưởng Đại Lý</h1>
         <div class="btn-group">
-            <button class="btn btn-demo" onclick="loadDemoData()">⚡ Nạp dữ liệu mẫu công ty (Nhiều F0)</button>
-            <button class="btn btn-danger" onclick="clearAllData()">🗑️ Xóa toàn bộ hệ thống</button>
+            <button class="btn btn-demo" onclick="loadDemoData()">⚡ Nạp nhanh dữ liệu mẫu công ty</button>
+            <button class="btn btn-danger" onclick="clearAllData()">🗑️ Xóa sạch hệ thống</button>
         </div>
     </header>
 
     <div class="storage-alert">
-        💾 Hệ thống tự động sao lưu cục bộ. Bạn có thể chốt số lưu trữ dữ liệu sang Google Sheets theo từng tháng ở mục số 3.
+        💾 Hệ thống tự động lưu trữ tức thời trên trình duyệt máy tính cá nhân của bạn.
     </div>
 
     <div class="row-top">
         <div>
             <div class="card">
-                <h2>1. Quản Lý Thành Viên Hệ Thống</h2>
-                <form id="memberForm" onsubmit="addMember(event)" style="margin-bottom: 15px;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <h2>1. Cơ Cấu Tổ Chức Nhân Sự</h2>
+                <form id="memberForm" onsubmit="addMember(event)" style="margin-bottom: 18px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                         <div class="form-group">
                             <label>Họ tên nhân sự:</label>
-                            <input type="text" id="memberName" class="form-control" placeholder="Ví dụ: CTV Nguyễn Văn A" required>
+                            <input type="text" id="memberName" class="form-control" placeholder="Tên CTV / Đại lý..." required>
                         </div>
                         <div class="form-group">
-                            <label>Cấp trên trực tiếp (Leader):</label>
+                            <label>Quản lý trực tiếp (Leader):</label>
                             <select id="memberParent" class="form-control">
-                                <option value="">-- Không có (Là F0 độc lập) --</option>
+                                <option value="">-- Không có (Là F0 gốc độc lập) --</option>
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">➕ Thêm mới nhân sự vào cây</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">➕ Ghi nhận nhân sự vào hệ thống</button>
                 </form>
 
-                <div style="border-top: 1px solid var(--border-color); padding-top: 10px;">
-                    <label style="display:block; font-weight:600; font-size:0.85rem; margin-bottom:5px; color:#475569;">
-                        📋 Dán nhanh Doanh số hàng loạt từ Excel / Google Sheet:
+                <div style="border-top: 1px solid var(--border-color); padding-top: 14px;">
+                    <label style="display:block; font-weight:600; font-size:0.82rem; margin-bottom:6px; color:#475569;">
+                        📋 Dán nhanh số lượng lớn từ Excel (2 cột: Tên | Số doanh số):
                     </label>
-                    <textarea class="paste-area" id="excelPasteZone" onpaste="handleExcelPaste(event)" placeholder="Bôi đen 2 cột (Tên nhân sự | Doanh số) từ Excel -> Copy -> Click vào đây và ấn Ctrl+V..."></textarea>
+                    <textarea class="paste-area" id="excelPasteZone" onpaste="handleExcelPaste(event)" placeholder="Bôi đen vùng dữ liệu trong Excel -> Copy -> Click vào đây và bấm Ctrl+V để đồng bộ tự động số lẻ..."></textarea>
                 </div>
             </div>
 
             <div class="card">
-                <h2>2. Nhập Doanh Số Thực Tế (Đơn vị: Tỷ đồng)</h2>
+                <h2>2. Nhập Số Liệu Thực Tế Hàng Tháng</h2>
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Họ tên CTV / Sale</th>
+                                <th>Họ tên nhân sự</th>
                                 <th>Cấp bậc</th>
-                                <th style="text-align: right; width: 140px;">Doanh số thực tế</th>
-                                <th style="text-align: center; width: 50px;">Xóa</th>
+                                <th style="text-align: right; width: 150px;">Doanh số (Tỷđđ)</th>
+                                <th style="text-align: center; width: 60px;">Hủy</th>
                             </tr>
                         </thead>
                         <tbody id="salesTableBody"></tbody>
@@ -155,28 +180,28 @@
 
         <div class="card" style="margin-bottom: 0;">
             <h2>
-                3. Bảng Tính Thưởng Hệ Thống & Lưu Trữ Kỳ
-                <button class="btn btn-success" onclick="exportToExcel()" style="font-size: 0.8rem; padding: 4px 10px;">
-                    📥 Xuất Excel (.xlsx)
+                3. Bảng Báo Cáo Tính Toán Hoa Hồng
+                <button class="btn btn-success" onclick="exportToExcel()" style="font-size: 0.8rem; padding: 6px 12px; border-radius: 6px;">
+                    📥 Xuất File Excel (.xlsx)
                 </button>
             </h2>
             
-            <div style="background-color: #f3e8ff; border: 1px solid #c084fc; padding: 12px; border-radius: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div class="sync-wrapper">
                 <div class="sync-box">
-                    <span>Chọn Kỳ/Tháng lưu:</span>
-                    <input type="month" id="archiveMonth" class="form-control" style="width: 140px; padding: 4px 8px;">
+                    <span>Kỳ kế toán:</span>
+                    <input type="month" id="archiveMonth" class="form-control" style="width: 150px; padding: 6px 10px; background:#fff;">
                 </div>
                 <button class="btn btn-cloud" id="btnSyncCloud" onclick="syncToGoogleSheet()">
-                    ☁️ Chốt số & Lưu về Google Sheet
+                    ☁️ Chốt số & Đồng bộ sang Google Sheets
                 </button>
             </div>
 
-            <div style="margin-bottom: 10px; font-size:0.85rem; color:#475569; font-weight: 600;">
-                Lọc xem riêng theo nhánh F0 Leader:
+            <div style="margin-bottom: 12px; font-size:0.82rem; color:var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">
+                Bộ lọc xem theo nhánh F0 gốc:
             </div>
             <div class="filter-bar" id="f0FilterBar"></div>
 
-            <div style="overflow-x: auto; border: 1px solid var(--border-color); border-radius: 6px;">
+            <div style="overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px;">
                 <table>
                     <thead>
                         <tr>
@@ -184,8 +209,8 @@
                             <th>Cấp</th>
                             <th>DS Riêng</th>
                             <th>DS Nhóm</th>
-                            <th>Mốc</th>
-                            <th>Thưởng Thực Tế</th>
+                            <th>Mốc đạt</th>
+                            <th style="color:var(--success-color);">Thưởng thực nhận</th>
                         </tr>
                     </thead>
                     <tbody id="rewardTableBody"></tbody>
@@ -196,22 +221,24 @@
 
     <div class="row-bottom">
         <div class="card">
-            <h2>4. Cây Phân Cấp Sơ Đồ Nhóm Kinh Doanh (Toàn màn hình)</h2>
+            <h2>4. Sơ Đồ Cây Hệ Thống Phân Cấp Trực Quan (Toàn màn hình)</h2>
             <div class="tree-container">
                 <div class="tree clearfix" id="treeRoot"></div>
             </div>
         </div>
     </div>
+
+    <footer>
+        © Developed by DMD – R&D FLV. All rights reserved.
+    </footer>
 </div>
 
 <script>
-    // =========================================================================
-    // ĐƯỜNG DẪN APPS SCRIPT CỦA BẠN (Dán link URL nhận được ở BƯỚC 1 vào đây)
-    // =========================================================================
-    const GOOGLE_SCRIPT_URL = https://script.google.com/macros/s/AKfycbwgPc3Nv5aQVHthKB4qBlxTLzkPTbdk2A3ga3wzaEJHEGyJZEP4msvIZuRt_V3oG4kl-g/exec;
+    // URL Web App Google Apps Script của bạn đã được đóng gói chuẩn
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgPc3Nv5aQVHthKB4qBlxTLzkPTbdk2A3ga3wzaEJHEGyJZEP4msvIZuRt_V3oG4kl-g/exec';
 
     function getStoredData() {
-        const stored = localStorage.getItem('company_mlm_data_v3');
+        const stored = localStorage.getItem('company_mlm_premium_v1');
         return stored ? JSON.parse(stored) : [];
     }
     
@@ -219,46 +246,47 @@
     let currentSelectedF0 = 'ALL';
 
     const rewardMilestones = [
-        { min: 100, rate: 0.03, label: "Mốc 4 (3%)" },
-        { min: 50,  rate: 0.02, label: "Mốc 3 (2%)" },
-        { min: 20,  rate: 0.01, label: "Mốc 2 (1%)" },
+        { min: 100, rate: 0.03, label: "Mốc 4 (3.0%)" },
+        { min: 50,  rate: 0.02, label: "Mốc 3 (2.0%)" },
+        { min: 20,  rate: 0.01, label: "Mốc 2 (1.0%)" },
         { min: 10,  rate: 0.005, label: "Mốc 1 (0.5%)" },
         { min: 0,   rate: 0, label: "Không đạt" }
     ];
 
-    // Tự động set mặc định ô chọn tháng chốt số là tháng hiện tại
     document.getElementById('archiveMonth').value = new Date().toISOString().slice(0, 7);
 
     function saveToStorage() {
-        localStorage.setItem('company_mlm_data_v3', JSON.stringify(members));
+        localStorage.setItem('company_mlm_premium_v1', JSON.stringify(members));
     }
 
     function loadDemoData() {
-        if(confirm("Xác nhận nạp dữ liệu mẫu hệ thống? Số liệu lẻ dạng tỷ đồng sẽ được nạp cấu trúc đầy đủ.")){
+        if(confirm("Hệ thống tiến hành nạp cấu trúc mẫu đa nhánh F0 (Gồm nhánh Sale in-house A lẻ số và các nhánh khác) để kiểm thử bộ lọc trực quan?")){
             members = [
                 { id: "A", name: "Sale in-house A", parentId: null, personalSales: 18.5 },
-                { id: "B", name: "CTV B", parentId: "A", personalSales: 8 },
+                { id: "B", name: "CTV B", parentId: "A", personalSales: 8.0 },
                 { id: "C", name: "CTV C", parentId: "A", personalSales: 9.25 },
-                { id: "D", name: "CTV D", parentId: "B", personalSales: 16 },
+                { id: "D", name: "CTV D", parentId: "B", personalSales: 16.0 },
                 { id: "E", name: "CTV E", parentId: "B", personalSales: 15.1 },
-                { id: "G", name: "CTV G", parentId: "E", personalSales: 25 },
+                { id: "G", name: "CTV G", parentId: "E", personalSales: 25.0 },
                 { id: "H", name: "CTV H", parentId: "E", personalSales: 4.3 },
                 { id: "L", name: "CTV L", parentId: "G", personalSales: 0.75 },
-                { id: "I", name: "CTV I", parentId: "H", personalSales: 3 },
+                { id: "I", name: "CTV I", parentId: "H", personalSales: 3.0 },
                 { id: "K", name: "CTV K", parentId: "H", personalSales: 2.15 },
 
                 { id: "Leader_Minh", name: "Leader Minh", parentId: null, personalSales: 30.2 },
-                { id: "CTV_An", name: "CTV An", parentId: "Leader_Minh", personalSales: 12 },
-                { id: "CTV_Binh", name: "CTV Bình", parentId: "Leader_Minh", personalSales: 22.8 }
+                { id: "CTV_An", name: "CTV An", parentId: "Leader_Minh", personalSales: 12.0 },
+                { id: "CTV_Binh", name: "CTV Bình", parentId: "Leader_Minh", personalSales: 22.8 },
+
+                { id: "Leader_Hoa", name: "Leader Hoa", parentId: null, personalSales: 5.5 }
             ];
-            currentSelectedF0 = 'A';
+            currentSelectedF0 = 'ALL';
             saveToStorage();
             updateApp();
         }
     }
 
     function clearAllData() {
-        if(confirm("Bạn có chắc chắn muốn xóa sạch toàn bộ hệ thống không?")) {
+        if(confirm("Xác nhận xóa toàn bộ cấu trúc sơ đồ và làm sạch hệ thống?")) {
             members = [];
             currentSelectedF0 = 'ALL';
             saveToStorage();
@@ -289,7 +317,7 @@
             }
         });
 
-        alert(`Đã nạp thành công doanh số thực tế lẻ cho ${matchCount} thành viên.`);
+        alert(`Đã nạp thành công số liệu Excel thực tế cho ${matchCount} thành viên.`);
         document.getElementById('excelPasteZone').value = '';
         saveToStorage();
         calculateAndRender();
@@ -310,7 +338,7 @@
     }
 
     function deleteMember(id) {
-        if(confirm("Bạn có chắc muốn xóa nhân sự này khỏi danh sách?")) {
+        if(confirm("Bạn có chắc chắn muốn loại bỏ nhân sự này? Tuyến dưới sẽ tự động chuyển cấp giao cho quản lý trên quản lý trực tiếp.")) {
             const target = members.find(m => m.id === id);
             if(!target) return;
             members.forEach(m => { if(m.parentId === id) m.parentId = target.parentId; });
@@ -356,7 +384,7 @@
 
     function updateApp() {
         const parentSelect = document.getElementById('memberParent');
-        parentSelect.innerHTML = '<option value="">-- Không có (Là F0 độc lập) --</option>';
+        parentSelect.innerHTML = '<option value="">-- Không có (Là F0 gốc độc lập) --</option>';
         members.forEach(m => {
             parentSelect.innerHTML += `<option value="${m.id}">F${getLevel(m)} - ${m.name}</option>`;
         });
@@ -366,6 +394,7 @@
     let globalCalculatedData = [];
 
     function calculateAndRender() {
+        // Khối logic 1: Doanh số nhóm và phần trăm quy đổi
         let calculatedData = members.map(m => {
             const gSales = getGroupSales(m.id);
             const mốc = getRewardConfig(gSales);
@@ -382,6 +411,7 @@
             };
         });
 
+        // Khối logic 2: MLM Hiệu số thưởng thực nhận kinh doanh
         calculatedData = calculatedData.map(m => {
             let directReward = m.directReward;
             let f1s = calculatedData.filter(child => child.parentId === m.id);
@@ -393,12 +423,12 @@
         calculatedData.sort((a, b) => a.level - b.level);
         globalCalculatedData = calculatedData;
 
-        // Xử lý Tabs lọc theo F0
+        // Khối giao diện 3: Đồng bộ Tabs F0 độc lập động
         const f0FilterBar = document.getElementById('f0FilterBar');
         const activeRoots = calculatedData.filter(m => m.parentId === null);
         
         if(currentSelectedF0 !== 'ALL' && !activeRoots.some(r => r.id === currentSelectedF0)) {
-            currentSelectedF0 = activeRoots.length > 0 ? activeRoots[0].id : 'ALL';
+            currentSelectedF0 = 'ALL';
         }
 
         f0FilterBar.innerHTML = '';
@@ -413,25 +443,25 @@
             filteredData = calculatedData.filter(m => m.rootF0Id === currentSelectedF0);
         }
 
-        // Đổ dữ liệu ra Bảng số 2 (Đã mở rộng ô nhập gõ tay tự do thoải mái số lẻ)
+        // Khối giao diện 4: Đổ bảng nhập số thực tế gõ tay
         const salesBody = document.getElementById('salesTableBody');
         salesBody.innerHTML = '';
         calculatedData.forEach(m => {
             salesBody.innerHTML += `
-                <tr style="${currentSelectedF0 !== 'ALL' && m.rootF0Id !== currentSelectedF0 ? 'opacity:0.4;' : ''}">
+                <tr style="${currentSelectedF0 !== 'ALL' && m.rootF0Id !== currentSelectedF0 ? 'opacity:0.3; pointer-events:none;' : ''}">
                     <td><strong>${m.name}</strong></td>
-                    <td><span class="badge">F${m.level}</span></td>
+                    <td><span class="badge ${m.level === 0 ? 'badge-f0' : ''}">F${m.level}</span></td>
                     <td style="text-align: right;">
-                        <input type="number" step="any" class="sales-input" value="${m.personalSales}" onfocus="this.select()" oninput="updateSales('${m.id}', this.value)"> tỷ
+                        <input type="number" step="any" class="sales-input" value="${m.personalSales}" onfocus="this.select()" oninput="updateSales('${m.id}', this.value)"> <span style="font-size:0.8rem; color:#64748b; font-weight:600;">tỷ</span>
                     </td>
                     <td style="text-align:center;">
-                        <button class="btn-delete" onclick="deleteMember('${m.id}')">❌</button>
+                        <button class="btn-delete" onclick="deleteMember('${m.id}')">✕</button>
                     </td>
                 </tr>
             `;
         });
 
-        // Đổ dữ liệu ra Bảng số 3
+        // Khối giao diện 5: Đổ bảng thưởng hiệu số báo cáo
         const rewardBody = document.getElementById('rewardTableBody');
         rewardBody.innerHTML = '';
         filteredData.forEach(m => {
@@ -439,16 +469,16 @@
             rewardBody.innerHTML += `
                 <tr>
                     <td><strong>${m.name}</strong></td>
-                    <td><span class="badge">F${m.level}</span></td>
-                    <td>${m.personalSales} tỷ</td>
-                    <td style="color: #2563eb; font-weight:bold;">${m.groupSales} tỷ</td>
-                    <td><small>${m.mốcLabel}</small></td>
-                    <td style="color:#16a34a; font-weight:bold;">${realRewardVnd} đ</td>
+                    <td><span class="badge ${m.level === 0 ? 'badge-f0' : ''}">F${m.level}</span></td>
+                    <td><b>${m.personalSales.toFixed(2)}</b> tỷ</td>
+                    <td style="color: var(--accent-color); font-weight:700;">${m.groupSales.toFixed(2)} tỷ</td>
+                    <td><span style="font-size:0.8rem; font-weight:600; color:#475569;">${m.mốcLabel}</span></td>
+                    <td style="color: var(--success-color); font-weight:700; font-size:0.92rem;">${realRewardVnd} đ</td>
                 </tr>
             `;
         });
 
-        // Vẽ sơ đồ cây toàn màn hình
+        // Khối giao diện 6: Vẽ sơ đồ cây toàn màn hình
         const treeRoot = document.getElementById('treeRoot');
         treeRoot.innerHTML = '';
         const rootsToRender = calculatedData.filter(m => m.parentId === null && (currentSelectedF0 === 'ALL' || m.id === currentSelectedF0));
@@ -460,7 +490,7 @@
             });
             treeRoot.appendChild(ul);
         } else {
-            treeRoot.innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8;">Hệ thống trống.</p>';
+            treeRoot.innerHTML = '<p style="text-align:center; padding:25px; color:#94a3b8;">Hệ thống đang trống dữ liệu phân cấp.</p>';
         }
     }
 
@@ -474,11 +504,11 @@
         const nodeDiv = document.createElement('div');
         nodeDiv.className = 'tree-node';
         nodeDiv.innerHTML = `
-            <div class="name">F${node.level}: ${node.name}</div>
+            <span class="name">F${node.level}: ${node.name}</span>
             <div class="details">
                 • Cá nhân: <b>${node.personalSales} tỷ</b><br>
-                • Nhóm: <b style="color:blue;">${node.groupSales} tỷ</b><br>
-                • Thưởng: <b style="color:green;">${(node.realReward * 1000).toFixed(1)} Tr</b>
+                • Doanh số nhóm: <b style="color:var(--accent-color);">${node.groupSales.toFixed(2)} tỷ</b><br>
+                • Thực nhận: <b style="color:var(--success-color);">${(node.realReward * 1000).toFixed(1)} Trđ</b>
             </div>
         `;
         li.appendChild(nodeDiv);
@@ -494,46 +524,25 @@
         return li;
     }
 
-    // ĐẨY DỮ LIỆU ĐẾN GOOGLE SHEET CLOUD BẰNG API FETCH
     function syncToGoogleSheet() {
-        if(GOOGLE_SCRIPT_URL === 'DÁN_LINK_WEB_APP_CỦA_BẠN_VÀO_ĐÂY' || !GOOGLE_SCRIPT_URL) {
-            alert("Bạn chưa cấu hình GOOGLE_SCRIPT_URL trong mã nguồn HTML! Vui lòng làm theo hướng dẫn Bước 1 để lấy link dán vào code.");
-            return;
-        }
-        if(globalCalculatedData.length === 0) {
-            alert("Không có dữ liệu hệ thống để chốt!");
-            return;
-        }
-
         const selectedMonth = document.getElementById('archiveMonth').value;
-        if(!selectedMonth) {
-            alert("Vui lòng chọn Tháng/Kỳ muốn chốt lưu trữ.");
-            return;
-        }
+        if(!selectedMonth) { alert("Vui lòng chỉ định Kỳ kế toán muốn chốt số."); return; }
 
         const btn = document.getElementById('btnSyncCloud');
         btn.disabled = true;
-        btn.innerText = "⏳ Đang kết nối & đẩy số...";
+        btn.innerText = "⏳ Đang đồng bộ đám mây...";
 
-        const payload = {
-            month: selectedMonth,
-            data: globalCalculatedData
-        };
-
-        // Sử dụng Fetch API gửi phương thức POST xuyên quốc gia đến Google Cloud
         fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
-            mode: 'no-cors', // Sử dụng chế độ no-cors để tích hợp linh hoạt với môi trường Apps Script
+            mode: 'no-cors',
             cache: 'no-cache',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+            body: JSON.stringify({ month: selectedMonth, data: globalCalculatedData })
         })
         .then(() => {
-            alert(`🎉 Chốt số thành công! Toàn bộ bảng tính của tất cả nhân sự đã được lưu trữ an toàn vào Tab [${selectedMonth}] trên Google Sheets của bạn.`);
+            alert(`🎉 Đồng bộ thành công! Toàn bộ bảng tính của tất cả nhân sự đã được đẩy an toàn vào Tab [${selectedMonth}] trên Google Sheets.`);
         })
-        .catch(err => {
-            alert("Lỗi kết nối đám mây: " + err.toString());
-        })
+        .catch(err => { alert("Lỗi kết nối: " + err.toString()); })
         .finally(() => {
             btn.disabled = false;
             btn.innerText = "☁️ Chốt số & Lưu về Google Sheet";
@@ -558,7 +567,7 @@
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Báo cáo");
         worksheet["!cols"] = [25, 10, 20, 20, 20, 30].map(w => ({ w: w }));
-        XLSX.writeFile(workbook, `Doanh_So_Mlm_${currentSelectedF0}_${new Date().toISOString().slice(0,10)}.xlsx`);
+        XLSX.writeFile(workbook, `Doanh_So_FLV_${currentSelectedF0}_${selectedMonth}.xlsx`);
     }
 
     updateApp();
