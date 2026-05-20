@@ -123,7 +123,7 @@
         .footer strong { color: #1a365d; }
     </style>
 </head>
-    <!-- ================= LUXURY PROMO ================= -->
+    <!-- ================= HORIZONTAL LUXURY POPUP ================= -->
 
 <!-- ===== TOP BAR ===== -->
 
@@ -143,99 +143,77 @@
 
         <button class="promo-close" onclick="closePopup()">×</button>
 
-        <!-- HEADER -->
+        <!-- LEFT -->
 
-        <div class="promo-header-tag">
-            ✨ ƯU ĐÃI TÀI CHÍNH ĐẶC BIỆT ✨
-        </div>
+        <div class="promo-left-side">
 
-        <h1>
-            LÁ CHẮN LÃI SUẤT<br>
-            <span>KHÓA TRẦN 8%</span>
-        </h1>
-
-        <div class="promo-subtitle">
-            NHÂN DỊP KỶ NIỆM SINH NHẬT CHỦ TỊCH HỒ CHÍ MINH 19/5
-        </div>
-
-        <!-- COUNTDOWN -->
-
-        <div class="countdown-title">
-            THỜI GIAN CÒN LẠI CỦA CHÍNH SÁCH
-        </div>
-
-        <div class="countdown-wrapper">
-
-            <div class="count-item">
-                <div id="days">00</div>
-                <span>NGÀY</span>
+            <div class="promo-header-tag">
+                ✨ ƯU ĐÃI TÀI CHÍNH ĐẶC BIỆT ✨
             </div>
 
-            <div class="count-item">
-                <div id="hours">00</div>
-                <span>GIỜ</span>
+            <h1>
+                LÁ CHẮN LÃI SUẤT
+                <span>KHÓA TRẦN 8%</span>
+            </h1>
+
+            <div class="promo-subtitle">
+                NHÂN DỊP KỶ NIỆM SINH NHẬT CHỦ TỊCH HỒ CHÍ MINH 19/5
             </div>
 
-            <div class="count-item">
-                <div id="minutes">00</div>
-                <span>PHÚT</span>
+            <div class="countdown-title">
+                THỜI GIAN CÒN LẠI CỦA CHÍNH SÁCH
             </div>
 
-            <div class="count-item">
-                <div id="seconds">00</div>
-                <span>GIÂY</span>
+            <div class="countdown-wrapper">
+
+                <div class="count-item">
+                    <div id="days">00</div>
+                    <span>NGÀY</span>
+                </div>
+
+                <div class="count-item">
+                    <div id="hours">00</div>
+                    <span>GIỜ</span>
+                </div>
+
+                <div class="count-item">
+                    <div id="minutes">00</div>
+                    <span>PHÚT</span>
+                </div>
+
+                <div class="count-item">
+                    <div id="seconds">00</div>
+                    <span>GIÂY</span>
+                </div>
+
             </div>
 
         </div>
 
-        <!-- POLICY GRID -->
+        <!-- RIGHT -->
 
-        <div class="promo-grid">
+        <div class="promo-right-side">
 
             <div class="promo-card">
-                <div class="promo-icon">💰</div>
-
-                <div class="promo-title">
-                    HỖ TRỢ TRẦN<br>
-                    LÃI SUẤT 8%/NĂM
-                </div>
+                💰 HỖ TRỢ TRẦN LÃI SUẤT 8%/NĂM
             </div>
 
             <div class="promo-card">
-                <div class="promo-icon">📈</div>
-
-                <div class="promo-title">
-                    CHỦ ĐẦU TƯ HỖ TRỢ<br>
-                    PHẦN LÃI VƯỢT 8%
-                </div>
+                📈 CHỦ ĐẦU TƯ HỖ TRỢ PHẦN LÃI VƯỢT 8%
             </div>
 
             <div class="promo-card">
-                <div class="promo-icon">⏳</div>
-
-                <div class="promo-title">
-                    THỜI GIAN HỖ TRỢ<br>
-                    36 THÁNG
-                </div>
-
-                <div class="promo-desc">
-                    kể từ ngày giải ngân
-                </div>
+                ⏳ THỜI GIAN HỖ TRỢ 36 THÁNG KỂ TỪ NGÀY GIẢI NGÂN
             </div>
 
             <div class="promo-card">
-                <div class="promo-icon">🏡</div>
-
-                <div class="promo-title">
-                    ÁP DỤNG TOÀN BỘ<br>
-                    DỰ ÁN FLAMINGO
-                </div>
+                🏡 ÁP DỤNG TOÀN BỘ DỰ ÁN FLAMINGO
             </div>
 
-        </div>
+            <div class="promo-note">
+                ÁP DỤNG CHO TOÀN BỘ DỰ ÁN BẤT ĐỘNG SẢN ĐANG TRIỂN KHAI CỦA FLAMINGO
+            </div>
 
-        <div class="promo-note">
-            ÁP DỤNG CHO TOÀN BỘ DỰ ÁN BẤT ĐỘNG SẢN ĐANG TRIỂN KHAI CỦA FLAMINGO
         </div>
 
     </div>
@@ -247,7 +225,7 @@
 /* ================= BODY ================= */
 
 body{
-    margin-top:68px;
+    margin-top:70px;
 }
 
 /* ================= TOP BAR ================= */
@@ -260,7 +238,7 @@ body{
     left:0;
 
     width:100%;
-    height:68px;
+    height:70px;
 
     background:rgba(255,255,255,0.96);
 
@@ -287,8 +265,6 @@ body{
 
     color:#0f274d;
 
-    white-space:nowrap;
-
     animation:marqueeMove 2s ease-in-out infinite alternate;
 }
 
@@ -310,9 +286,9 @@ body{
 
     align-items:center;
 
-    z-index:99999;
+    padding:24px;
 
-    padding:20px;
+    z-index:99999;
 
     box-sizing:border-box;
 }
@@ -321,47 +297,27 @@ body{
 
     width:100%;
 
-    max-width:620px;
+    max-width:1080px;
 
     background:
     linear-gradient(
         135deg,
         #ffffff,
-        #f8fbff
+        #f7fbff
     );
 
-    border-radius:28px;
+    border-radius:30px;
 
-    padding:34px;
+    padding:38px;
+
+    display:flex;
+
+    gap:34px;
 
     position:relative;
 
-    overflow:hidden;
-
     box-shadow:
-    0 24px 60px rgba(0,0,0,0.16);
-}
-
-.promo-modal::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:260px;
-    height:260px;
-
-    background:
-    radial-gradient(
-        circle,
-        rgba(210,167,79,0.14),
-        transparent 70%
-    );
-
-    border-radius:50%;
-
-    top:-120px;
-    right:-90px;
+    0 24px 60px rgba(0,0,0,0.18);
 }
 
 /* ================= CLOSE ================= */
@@ -370,8 +326,8 @@ body{
 
     position:absolute;
 
-    top:16px;
-    right:16px;
+    top:18px;
+    right:18px;
 
     width:42px;
     height:42px;
@@ -391,7 +347,12 @@ body{
     color:#0f274d;
 }
 
-/* ================= HEADER ================= */
+/* ================= LEFT ================= */
+
+.promo-left-side{
+
+    flex:1.1;
+}
 
 .promo-header-tag{
 
@@ -406,7 +367,7 @@ body{
 
     color:white;
 
-    padding:12px 24px;
+    padding:12px 22px;
 
     border-radius:999px;
 
@@ -414,17 +375,10 @@ body{
 
     font-weight:900;
 
-    letter-spacing:1px;
-
     margin-bottom:22px;
-
-    box-shadow:
-    0 8px 24px rgba(207,161,75,0.28);
 }
 
-.promo-modal h1{
-
-    text-align:center;
+.promo-left-side h1{
 
     font-size:42px;
 
@@ -432,30 +386,26 @@ body{
 
     color:#11284c;
 
-    margin-bottom:16px;
+    margin-bottom:18px;
 
     font-weight:900;
-
-    letter-spacing:1px;
 }
 
-.promo-modal h1 span{
+.promo-left-side h1 span{
 
     color:#d0a24a;
 
     text-shadow:
-    0 0 10px rgba(255,220,140,0.85);
+    0 0 10px rgba(255,220,140,0.8);
 }
 
 .promo-subtitle{
 
-    text-align:center;
-
-    font-size:18px;
+    font-size:17px;
 
     line-height:1.6;
 
-    color:#44536b;
+    color:#4f5d74;
 
     font-weight:700;
 
@@ -466,67 +416,63 @@ body{
 
 .countdown-title{
 
-    text-align:center;
-
-    font-size:18px;
+    font-size:16px;
 
     font-weight:900;
 
     color:#0f274d;
 
-    margin-bottom:16px;
+    margin-bottom:14px;
 }
 
 .countdown-wrapper{
 
     display:flex;
 
-    justify-content:center;
-
     gap:12px;
-
-    margin-bottom:30px;
 
     flex-wrap:wrap;
 }
 
 .count-item{
 
-    width:82px;
+    width:72px;
 
     background:white;
 
-    border-radius:20px;
+    border-radius:18px;
 
-    padding:16px;
+    padding:12px;
 
     text-align:center;
 
     box-shadow:
-    0 10px 24px rgba(0,0,0,0.05);
+    0 8px 20px rgba(0,0,0,0.05);
 }
 
 .count-item div{
 
-    font-size:28px;
+    font-size:24px;
 
     font-weight:900;
 
-    color:#0f274d;
+    color:#11284c;
 }
 
 .count-item span{
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:800;
 
     color:#9aa3b1;
 }
 
-/* ================= GRID ================= */
+/* ================= RIGHT ================= */
 
-.promo-grid{
+.promo-right-side{
+
+    flex:1;
 
     display:grid;
 
@@ -543,28 +489,6 @@ body{
 
     padding:24px 18px;
 
-    text-align:center;
-
-    box-shadow:
-    0 14px 30px rgba(0,0,0,0.05);
-
-    transition:0.3s;
-}
-
-.promo-card:hover{
-
-    transform:translateY(-3px);
-}
-
-.promo-icon{
-
-    font-size:26px;
-
-    margin-bottom:12px;
-}
-
-.promo-title{
-
     font-size:18px;
 
     line-height:1.6;
@@ -572,34 +496,34 @@ body{
     font-weight:900;
 
     color:#11284c;
-}
 
-.promo-desc{
+    display:flex;
 
-    margin-top:6px;
+    align-items:center;
 
-    font-size:14px;
-
-    color:#6d7685;
-
-    font-weight:600;
-}
-
-/* ================= NOTE ================= */
-
-.promo-note{
-
-    margin-top:28px;
+    justify-content:center;
 
     text-align:center;
 
-    font-size:17px;
+    box-shadow:
+    0 12px 28px rgba(0,0,0,0.05);
+}
+
+.promo-note{
+
+    grid-column:span 2;
+
+    text-align:center;
+
+    font-size:15px;
 
     line-height:1.7;
 
     font-weight:900;
 
     color:#0f274d;
+
+    padding-top:10px;
 }
 
 /* ================= ANIMATION ================= */
@@ -607,60 +531,44 @@ body{
 @keyframes marqueeMove{
 
     from{
-        transform:translateX(-35px);
+        transform:translateX(-40px);
     }
 
     to{
-        transform:translateX(35px);
+        transform:translateX(40px);
     }
 }
 
 /* ================= MOBILE ================= */
 
-@media(max-width:768px){
+@media(max-width:900px){
 
     body{
         margin-top:78px;
     }
 
-    .top-promo-bar{
-        height:78px;
-        padding:0 10px;
-    }
-
-    .promo-marquee{
-        font-size:15px;
-        text-align:center;
-    }
-
     .promo-modal{
-        padding:28px 18px;
-        border-radius:24px;
+
+        flex-direction:column;
+
+        padding:28px 20px;
     }
 
-    .promo-modal h1{
+    .promo-left-side h1{
         font-size:32px;
     }
 
-    .promo-subtitle{
-        font-size:16px;
-    }
-
-    .promo-grid{
+    .promo-right-side{
         grid-template-columns:1fr;
     }
 
-    .count-item{
-        width:68px;
-        padding:12px;
+    .promo-note{
+        grid-column:span 1;
     }
 
-    .count-item div{
-        font-size:24px;
-    }
-
-    .promo-title{
-        font-size:17px;
+    .promo-marquee{
+        font-size:14px;
+        text-align:center;
     }
 
 }
@@ -695,7 +603,7 @@ window.onload = function(){
 
         document.getElementById("promoPopup").style.display = "flex";
 
-    }, 700);
+    }, 600);
 
 }
 
@@ -735,7 +643,7 @@ const countdown = setInterval(function(){
 
 </script>
 
-<!-- ================= END LUXURY PROMO ================= -->
+<!-- ================= END POPUP ================= -->
 <body>
 
     <div class="header">
