@@ -170,11 +170,21 @@ body.lock-scroll{
     align-items:center;
     z-index:9999;
     border-bottom:1px solid #eee;
-}
-
 .promo-marquee{
     font-weight:900;
-    animation:move 10s linear infinite;
+    white-space:nowrap;
+    display:inline-block;
+    animation:marqueeMove 12s linear infinite;
+}
+
+/* chạy liên tục mượt kiểu vòng lặp vô hạn */
+@keyframes marqueeMove{
+    0%{
+        transform:translateX(100%);
+    }
+    100%{
+        transform:translateX(-100%);
+    }
 }
 
 /* ================= POPUP ================= */
@@ -335,7 +345,7 @@ body.lock-scroll{
 
 <div class="top-promo-bar">
     <div class="promo-marquee">
-        🔥 ƯU ĐÃI KHÓA TRẦN LÃI SUẤT 8% · FLAMINGO HỖ TRỢ PHẦN LÃI VƯỢT 8%
+        🔥 ƯU ĐÃI KHÓA TRẦN LÃI SUẤT 8%/NĂM · CHỦ ĐẦU TƯ HỖ TRỢ KHÁCH HÀNG PHẦN LÃI VƯỢT 8%
     </div>
 </div>
 
