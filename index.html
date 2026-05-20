@@ -235,7 +235,7 @@
 
 <script>
     // URL Web App Google Apps Script của bạn đã được đóng gói chuẩn
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgPc3Nv5aQVHthKB4qBlxTLzkPTbdk2A3ga3wzaEJHEGyJZEP4msvIZuRt_V3oG4kl-g/exec';
+    const GOOGLE_SCRIPT_URL = https://script.google.com/macros/s/AKfycbzn9zliJyg_QXR1rY-BlLGZCMi4dACN3aBx4k4i4LEKI-CivKYh3NF9WXmV9awO-FGx3A/exec;
 
     function getStoredData() {
         const stored = localStorage.getItem('company_mlm_premium_v1');
@@ -426,7 +426,7 @@
         // Khối giao diện 3: Đồng bộ Tabs F0 độc lập động
         const f0FilterBar = document.getElementById('f0FilterBar');
         const activeRoots = calculatedData.filter(m => m.parentId === null);
-        
+        `
         if(currentSelectedF0 !== 'ALL' && !activeRoots.some(r => r.id === currentSelectedF0)) {
             currentSelectedF0 = 'ALL';
         }
