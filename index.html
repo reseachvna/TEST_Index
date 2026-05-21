@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Quản Lý Doanh Số & Thưởng Đại Lý</title>
+    <title>Hệ Thống Quản Lý Doanh Số & Thưởng Đại Lý </title>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -136,7 +136,7 @@
     <header>
         <h1>Hệ Thống Quản Lý Doanh Số & Thưởng Đại Lý</h1>
         <div class="btn-group">
-            <button class="btn btn-demo" onclick="loadDemoData()">⚡ Nhập dữ liệu ví dụ</button>
+            <button class="btn btn-demo" onclick="loadDemoData()">⚡ Nạp nhanh dữ liệu mẫu</button>
             <button class="btn btn-danger" onclick="clearAllData()">🗑️ Làm mới hệ thống</button>
         </div>
     </header>
@@ -234,7 +234,7 @@
 
     <div class="row-bottom" style="margin-top: 25px;">
         <div class="card">
-            <h2>4. Sơ Đồ Cây Hệ Thống Phân Cấp</h2>
+            <h2>4. Sơ Đồ Cây Hệ Thống Phân Cấp (Tối Ưu Gọn - Chữ To Rõ Nhất)</h2>
             <div class="tree-container">
                 <div class="tree" id="treeRoot"></div>
             </div>
@@ -247,7 +247,7 @@
 </div>
 
 <script>
-    const GOOGLE_SCRIPT_URL =https://script.google.com/macros/s/AKfycbxof3H2j2OObWfsYz5VHyud4_zdIOlA-6dfp0Ko9wwAlV4odUKURvsWsKc6TrNrK_Fn/exec;
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgPc3Nv5aQVHthKB4qBlxTLzkPTbdk2A3ga3wzaEJHEGyJZEP4msvIZuRt_V3oG4kl-g/exec';
 
     function getStoredData() {
         const stored = localStorage.getItem('company_mlm_premium_v4');
@@ -279,7 +279,7 @@
     function loadDemoData() {
         if(confirm("Hệ thống tiến hành nạp cấu trúc mẫu đa nhánh F0 phân tầng màu sắc toàn diện để kiểm thử?")){
             members = [
-                { id: "A", name: "Dương Thanh Tú", parentId: null, personalSales: 18.5 },
+                { id: "A", name: "Sale in-house A", parentId: null, personalSales: 18.5 },
                 { id: "B", name: "CTV B", parentId: "A", personalSales: 8.0 },
                 { id: "C", name: "CTV C", parentId: "A", personalSales: 9.25 },
                 { id: "D", name: "CTV D", parentId: "B", personalSales: 16.0 },
@@ -290,11 +290,11 @@
                 { id: "I", name: "CTV I", parentId: "H", personalSales: 3.0 },
                 { id: "K", name: "CTV K", parentId: "H", personalSales: 2.15 },
 
-                { id: "Dương Minh Đức", name: "Leader Minh", parentId: null, personalSales: 30.2 },
-                { id: "CTV_An", name: "CTV Anh", parentId: "Leader_Minh", personalSales: 12.0 },
+                { id: "Leader_Minh", name: "Leader Minh", parentId: null, personalSales: 30.2 },
+                { id: "CTV_An", name: "CTV An", parentId: "Leader_Minh", personalSales: 12.0 },
                 { id: "CTV_Binh", name: "CTV Bình", parentId: "Leader_Minh", personalSales: 22.8 },
 
-                { id: "Leader_Duy", name: "Leader Duy", parentId: null, personalSales: 5.5 }
+                { id: "Leader_Hoa", name: "Leader Hoa", parentId: null, personalSales: 5.5 }
             ];
             currentSelectedF0 = 'ALL';
             saveToStorage();
